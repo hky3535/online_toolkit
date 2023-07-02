@@ -1,0 +1,6 @@
+django
+django-sslserver
+natsort
+opencv-python
+requests
+tzdata
