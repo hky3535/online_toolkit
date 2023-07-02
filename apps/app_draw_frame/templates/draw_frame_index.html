@@ -1,0 +1,138 @@
+<!-- 何恺悦 hekaiyue 2023-06-27 -->
+<!DOCTYPE html>
+{% load static %}
+<html>
+
+    <head>
+        <title>绘制图像</title>
+        <meta charset="utf-8">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <link rel="stylesheet" href="{% static 'css/draw_frame_index.css' %}">
+    </head>
+
+    <body>
+        <div id="main_div">
+
+            <div id="folders_div">
+                <h1>文件夹列表</h1>
+                <div id="folders_btn">
+                    <button id="refreshFolderBtn">刷新</button>
+                    <button id="createFolderBtn">新建</button>
+                    <button id="deleteFolderBtn">删除</button>
+                    <button id="selectallFolderBtn">全选</button>
+                </div>
+                <div id="folders_list_div">
+                    <ul id="foldersList"></ul>
+                </div>
+            </div>
+
+            <div id="files_div">
+                <h1>文件列表</h1>
+                <div id="files_btn_div">
+                    <button id="uploadFileBtn">上传</button>
+                    <button id="deleteFileBtn">删除</button>
+                    <button id="selectallFileBtn">全选</button>
+                    <button id="downloadFileBtn">下载</button>
+                </div>
+                <div id="files_list_div">
+                    <ul id="filesList"></ul>
+                </div>
+            </div>
+
+            <div id="operation_div">
+                <div id="items_div">
+                    <h1>元素</h1>
+                    <div id="items_btn_div">
+                        <button id="deleteItemBtn">删除</button>
+                        <button id="selectallItemBtn">全选</button>
+                    </div>
+                    <div id="items_list_div">
+                        <ul id="itemsList"></ul>
+                    </div>
+                </div>
+    
+                <div id="frame_draw_div">
+                    <h1>绘制</h1>
+                    <div id="draw_btn_div">
+                        <button id="lastFrameBtn">上一张</button>
+                        <button id="nextFrameBtn">下一张</button>
+                        
+                        <button id="drawPointBtn">点</button>
+                        <button id="drawLineBtn">线</button>
+                        <button id="drawRectBtn">矩形</button>
+                        <button id="drawCircleBtn">圆</button>
+                        <button id="drawPolygonBtn">多边形</button>
+                    </div>
+                    <div id="frame_draw_canvas_div">
+                        <div id="frame_div">
+                            <canvas id="frameCanvas" width="640" height="640" style="background-color: rgba(0, 0, 0, 0.05);"></canvas>
+                        </div>
+                        <div id="draw_div">
+                        </div>
+                        <div id="draw_event_div">
+                        </div>
+                    </div>
+                    <div id="current_information_div">
+                        <textarea id="current_information_textarea" readonly></textarea>
+                    </div>
+                </div>
+                
+                <div id="rest_rest_div">
+                    <!-- <h1>rest</h1>
+                    <div id="rest_button">
+                        <button>what</button>
+                    </div>
+                    <div id="rest_panel">
+                        whatwhat
+                    </div> -->
+                </div> 
+
+            </div>
+
+            <!-- 子窗口 -->
+            <div id="popup_div">
+                <div id="create_folder_popup_div">
+                    <div class="popup_title">新建文件夹</div>
+                    <input type="text" id="create_folder_input">
+                    <div id="create_folder_popup_btn_div">
+                        <button id="create_confirm">确定</button>
+                        <button id="create_cancel">取消</button>
+                    </div>
+                </div>
+                <div id="upload_file_popup_div">
+                    <div class="popup_title">上传文件</div>
+                    <div id="select_file_div" >
+                        <input type="file" id="select_file" multiple accept=".jpg,.png,.json" style="display: none;">
+                        <button id="select_button">选择文件</button>
+                    </div>
+                    <div id="upload_list_div">
+                        <ul id="uploadList"></ul>
+                    </div>
+                    <div id="upload_file_popup_btn_div">
+                        <button id="upload_confirm">上传</button>
+                        <button id="upload_cancel">取消</button>
+                    </div>
+                </div>
+                <div id="download_file_popup_div">
+                    <div class="popup_title">下载文件</div>
+                    <div id="download_file_popup_checkbox_div">
+                        <label><input type="checkbox" id="origin_frame">初始图像</label>
+                        <label><input type="checkbox" id="drawn_frame">绘制图像</label>
+                        <label><input type="checkbox" id="drawings" checked>绘制数据</label>
+                    </div>
+                    <div id="download_file_popup_btn_div">
+                        <button id="download_confirm">下载</button>
+                        <button id="download_cancel">取消</button>
+                    </div>
+                </div>
+            </div>
+            <!-- 全局状态弹窗 -->
+            <div id="status_popup_div">
+                <label id="status_popup_label">helloworld!</label>
+            </div>
+
+        </div>
+
+    </body>
+    <script src="{% static 'js/draw_frame_index.js' %}"></script>
+</html>

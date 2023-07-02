@@ -1,0 +1,25 @@
+<!-- 何恺悦 hekaiyue 2023-06-27 -->
+<!DOCTYPE html>
+{% load static %}
+<html>
+
+    <head>
+        <title>网址导航</title>
+        <meta charset="utf-8">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <link rel="stylesheet" href="{% static 'css/root_index.css' %}">
+    </head>
+
+    <body>
+        <div id="main_div">
+            <div id="links_div">
+                <h1>网址导航</h1>
+                <button onclick="window.location.href='/draw_frame/'">绘制图像</button>
+                <button onclick="window.location.href='/limited_time_sharing/'">限时分享</button>
+                <button onclick="window.location.href='/media_scrape/'">媒体抓取</button>
+            </div>
+        </div>
+
+    </body>
+    <script src="{% static 'js/root_index.js' %}"></script>
+</html>

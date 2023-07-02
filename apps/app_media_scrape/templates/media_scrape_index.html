@@ -1,0 +1,41 @@
+<!-- 何恺悦 hekaiyue 2023-07-01 -->
+<!DOCTYPE html>
+{% load static %}
+<html>
+
+    <head>
+        <title>媒体抓取</title>
+        <meta charset="utf-8">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <link rel="stylesheet" href="{% static 'css/media_scrape_index.css' %}">
+    </head>
+
+    <body>
+        <div id="main_div">
+
+            <div id="download_div">
+                <h1>媒体下载</h1>
+                <div id="operate_download_div">
+                    <button id="paste_url_btn">粘贴链接</button> 
+                </div>
+                <div id="download_url_div">
+                    <textarea id="download_url_textarea"></textarea>
+                    <select id="source_select">
+                        <option value="douyin">抖音</option>
+                        <option value="weibo">微博</option>
+                        <option value="bilibili">bilibili</option>
+                    </select>
+                    <button id="download_btn">下载文件</button>
+                </div>
+            </div>
+
+            <!-- 全局状态弹窗 -->
+            <div id="status_popup_div">
+                <label id="status_popup_label">helloworld!</label>
+            </div>
+
+        </div>
+
+    </body>
+    <script src="{% static 'js/media_scrape_index.js' %}"></script>
+</html>

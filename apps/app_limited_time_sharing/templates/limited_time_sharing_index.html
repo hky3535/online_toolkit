@@ -1,0 +1,51 @@
+<!-- 何恺悦 hekaiyue 2023-06-27 -->
+<!DOCTYPE html>
+{% load static %}
+<html>
+
+    <head>
+        <title>限时分享</title>
+        <meta charset="utf-8">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <link rel="stylesheet" href="{% static 'css/limited_time_sharing_index.css' %}">
+    </head>
+
+    <body>
+        <div id="main_div">
+            
+            <div id="upload_div">
+                <h1>上传</h1>
+                <div id="select_upload_div">
+                    <input type="file" id="select" multiple style="display: none;">
+                    <button id="select_btn">选择文件</button>
+                    <button id="upload_btn">上传文件</button> 
+                </div>
+                <div id="upload_url_div">
+                    <textarea id="upload_url_textarea" readonly></textarea>
+                    <button id="copy_url_btn">复制链接</button>
+                </div>
+            </div>
+
+            <div id="download_div">
+                <h1>下载</h1>
+                <div id="operate_download_div">
+                    <button id="paste_url_btn">粘贴链接</button> 
+                </div>
+                <div id="download_url_div">
+                    <textarea id="download_url_textarea"></textarea>
+                    <button id="download_btn">下载文件</button>
+                </div>
+                
+            </div>
+            
+            <!-- 全局状态弹窗 -->
+            <div id="status_popup_div">
+                <label id="status_popup_label">helloworld!</label>
+            </div>
+            
+
+        </div>
+
+    </body>
+    <script src="{% static 'js/limited_time_sharing_index.js' %}"></script>
+</html>
