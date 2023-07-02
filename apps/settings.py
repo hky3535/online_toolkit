@@ -31,11 +31,6 @@ ALLOWED_HOSTS = ['*']
 
 # 启用 HTTPS 协议
 SSL_ENABLED = True
-# SSL 证书和密钥的路径
-SSL_CERTIFICATE = '/workspace/apps/ssl/cert.pem'
-SSL_PRIVATE_KEY = '/workspace/apps/ssl/key.pem'
-# 监听地址和端口
-BIND_ADDRESS = '0.0.0.0:8888'
 
 # Application definition
 
