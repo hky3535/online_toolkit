@@ -26,7 +26,7 @@ class Basic:
         if source == "douyin":
             res, content = self.parent.douyin.download(url)
         if source == "weibo":
-            pass
+            res, content = self.parent.weibo.download(url)
         if source == "bilibili":
             pass
         

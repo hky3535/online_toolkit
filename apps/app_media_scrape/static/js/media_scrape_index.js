@@ -78,7 +78,7 @@ function download_confirm() {
     .then(data => {
         if (data["res"] !== true) {
             status_popup_label.textContent = "下载出错！";
-            download_url_textarea.value = data["res"]; 
+            download_url_textarea.value = data["content"]; 
         } else {
             status_popup_label.textContent = "开始下载！";
             let url = `/media_scrape/download_file/?identification_code=${identification_code}`;
