@@ -37,7 +37,7 @@ class Basic:
         
         if res:
             try:
-                save_dir = f"{self.base_dir}/utils/download_temp/[{source}]{identification}{content[0]}.mp4"
+                save_dir = f"{self.base_dir}/utils/download_temp/[{source}]{content[0]}[{identification}].mp4"
                 open(save_dir, "wb").write(content[1])
                 return True, content[0]
             except Exception as e:
