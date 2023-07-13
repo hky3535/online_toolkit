@@ -6,6 +6,11 @@ class Basic:
     def __init__(self, parent):
         self.parent = parent
         self.base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        self.generate_dir()
+
+    def generate_dir(self):
+        if not os.path.exists(f"{self.base_dir}/utils/download_temp"):
+            os.mkdir(f"{self.base_dir}/utils/download_temp")
 
     def sanitize(self, file_name):
         illegal_chars = r'[\/:*?"<>|]'

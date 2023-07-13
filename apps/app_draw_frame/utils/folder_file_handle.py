@@ -8,6 +8,7 @@ import tarfile
 import cv2
 import numpy
 
+
 class FolderFile:
     def __init__(self, parent):
         self.parent = parent

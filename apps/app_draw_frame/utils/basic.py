@@ -12,6 +12,11 @@ class Basic:
     def __init__(self, parent):
         self.parent = parent
         self.base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        self.generate_dir()
+
+    def generate_dir(self):
+        if not os.path.exists(f"{self.base_dir}/utils/storage"):
+            os.mkdir(f"{self.base_dir}/utils/storage")
 
     def change_dir(self, target_dir):   # 切换当前程序目录至target_dir结束后再切换回程序根目录
         parent = self   # 连接域
