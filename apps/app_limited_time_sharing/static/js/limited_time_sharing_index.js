@@ -75,23 +75,10 @@ function status_popup(seconds, text) {
         status_popup_div.style.display = 'none';
     }, seconds*1000);
 }
-function generate_identification() {
-    const date = new Date();
-    const now_time = 
-        `${date.getFullYear()}-` + 
-        `${(date.getMonth() + 1).toString().padStart(2, '0')}-` + 
-        `${date.getDate().toString().padStart(2, '0')}-` + 
-        `${date.getHours().toString().padStart(2, '0')}-` + 
-        `${date.getMinutes().toString().padStart(2, '0')}-` + 
-        `${date.getSeconds().toString().padStart(2, '0')}` 
-    ;
-    const identification_code = Math.floor(Math.random() * 9000000) + 1000000;
-    const identification_sequence = `[${now_time}][${identification_code}]`;
-    return [identification_sequence, identification_code];
-}
-function generate_url(identification, identification_code) {
+
+function generate_url(identification_code) {
     let root_url = window.location.origin;
-    let download_url = `${root_url}/limited_time_sharing/download_file/?identification=${identification}`
+    let download_url = `${root_url}/limited_time_sharing/download_file/?identification=${identification_code}`
     let download_text = `长链下载：${download_url}\r\n短链下载：${identification_code}`;
     upload_url_textarea.value = download_text;
     copy_url_btn.disabled = false;
@@ -113,8 +100,7 @@ function upload_confirm() {
     status_popup_div.style.display = 'flex';
     main_div.style.pointerEvents = 'none';
     let upload_files_form_it = upload_files_form.entries();
-    let _identification = generate_identification();
-    let identification_sequence = _identification[0]; let identification_code = _identification[1];
+    let identification_code = Math.floor(Math.random() * 9000000) + 1000000;
     upload_fetch(0);
 
     function upload_fetch(index) {
@@ -129,7 +115,7 @@ function upload_confirm() {
         let upload_file_form_item = upload_files_form_it.next();
         if (upload_file_form_item.done) {
             status_popup_label.textContent = `（${index}/${selected_files_number}）上传完成！`; 
-            generate_url(identification_sequence, identification_code);
+            generate_url(identification_code);
             setTimeout(() => {
                 main_div.style.pointerEvents = 'auto';
                 status_popup_div.style.display = 'none';
@@ -140,14 +126,14 @@ function upload_confirm() {
         /**
          * 在状态弹窗文字中设置事件：当前正在上传的文件
          * 创建一个临时独立FormData()
-         * 加入文件夹名称['identification', '[日期][固定位数随机数]']
+         * 加入文件夹名称['identification', '固定位数随机数']
          * 加入文件['文件名称', 文件本体]
          * 向服务器上传该文件
          *   在data中递归本函数
          */
         status_popup_label.textContent = `（${index+1}/${selected_files_number}）上传中...`;
         var upload_file_form_temp = new FormData();
-        upload_file_form_temp.append('identification', identification_sequence);
+        upload_file_form_temp.append('identification_code', identification_code);
         upload_file_form_temp.append(upload_file_form_item.value[0], upload_file_form_item.value[1]);
         fetch('/limited_time_sharing/upload_file/', {
             method: 'POST',
@@ -168,18 +154,16 @@ function download_confirm() {
      * 获取到待下载url
      * 判断url是否为七位数字
      * 若是 则使用短链下载
-     * 若否 则使用长链下载
+     * 若否 则直接长链下载
      */
-    let url = download_url_textarea.value;
-    if (url !== "") {
+    let input_url = download_url_textarea.value;
+    if (input_url !== "") {
         const regex = /^\d{7}$/;
-        if (regex.test(url)) {
-            let short_url = `/limited_time_sharing/download_file/?identification=${url}`
-            const link = document.createElement('a'); link.href = short_url; link.click();
-        } else {
-            let long_url = url;
-            const link = document.createElement('a'); link.href = long_url; link.click();
+        if (regex.test(input_url)) {
+            input_url = `/limited_time_sharing/download_file/?identification_code=${input_url}`
+        } else {  
         }
+        const link = document.createElement('a'); link.href = input_url; link.click(); 
     }
 }
 
