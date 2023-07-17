@@ -1,25 +1,24 @@
+"""
+何恺悦 hekaiyue 2023-07-01
+"""
 import requests
 import re
-import urllib
-import json
+
 
 class Weibo:
-    def __init__(self, parent):
-        self.parent = parent
+    def __init__(self):
+        pass
 
-    def download(self, url):
+    def scrape_url(self, url):
         try:
-            page = requests.get(url=url).content.decode('utf8')                                                 # 获取到播放页面
+            page = requests.get(url=url).content.decode('utf8')
         except Exception as e:
-            print(e)
-            return False, "微博页面爬取失败"
+            return False, f"微博页面爬取失败：{e}"
 
         try:
             # 获取到标题和链接
-            title = self.parent.basic.sanitize(re.search(r'"content2":\s*"([^"]+)",', page).group(1))
+            title = re.search(r'"content2":\s*"([^"]+)",', page).group(1)
             url = re.findall(r'"mp4_.+?_mp4":\s*"(.+?)"', page)[0]
-            content = requests.get(url).content
-            return True, (title, content)
+            return True, (title, url)
         except Exception as e:
-            print(e)
-            return False, "微博视频爬取失败"
+            return False, f"微博视频爬取失败：{e}"

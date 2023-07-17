@@ -20,21 +20,6 @@ paste_url_btn.addEventListener('click', function() {
     });
 });
 
-function generate_identification() {
-    const date = new Date();
-    const now_time = 
-        `${date.getFullYear()}-` + 
-        `${(date.getMonth() + 1).toString().padStart(2, '0')}-` + 
-        `${date.getDate().toString().padStart(2, '0')}-` + 
-        `${date.getHours().toString().padStart(2, '0')}-` + 
-        `${date.getMinutes().toString().padStart(2, '0')}-` + 
-        `${date.getSeconds().toString().padStart(2, '0')}` 
-    ;
-    const identification_code = Math.floor(Math.random() * 9000000) + 1000000;
-    const identification_sequence = `[${now_time}][${identification_code}]`;
-    return [identification_sequence, identification_code];
-}
-
 function status_popup(seconds, text) {
     status_popup_label.textContent = text;
     status_popup_div.style.display = 'flex';
@@ -54,13 +39,10 @@ function download_confirm() {
      * 获取到待下载url
      */
     let source = source_select.value;
-    let url = download_url_textarea.value;
-    let _identification = generate_identification();
-    let identification_sequence = _identification[0];
-    let identification_code = _identification[1];
+    let input_url = download_url_textarea.value;
 
-    if (url !== "") {
-        status_popup_label.textContent = "url解析中...";
+    if (input_url !== "") {
+        status_popup_label.textContent = "链接解析中...";
         status_popup_div.style.display = 'flex';
         main_div.style.pointerEvents = 'none';
     }
@@ -69,20 +51,19 @@ function download_confirm() {
         method: 'POST',                 // 发送请求：{'folder': 文件夹名称}
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
-            'identification': identification_sequence,
             'source': source,
-            'url': url
+            'input_url': input_url
         })
     })
-    .then(response => response.json())  // 得到响应：{'files_list': ['文件名称0', '文件名称1', ...]}
+    .then(response => response.json())
     .then(data => {
-        if (data["res"] !== true) {
+        if (data["ret"] !== true) {
             status_popup_label.textContent = "下载出错！";
-            download_url_textarea.value = data["content"]; 
+            download_url_textarea.value = data["res"]; 
         } else {
             status_popup_label.textContent = "开始下载！";
-            let url = `/media_scrape/download_file/?identification_code=${identification_code}`;
-            const link = document.createElement('a'); link.href = url; link.download = data["content"]; link.click();
+            let url = `/media_scrape/download_file/?identification_code=${data["res"][0]}`;
+            const link = document.createElement('a'); link.href = url; link.download = data["res"][1]; link.click();
         }
         setTimeout(() => {  // 几秒后关闭悬浮窗 复原主屏幕
             /**
