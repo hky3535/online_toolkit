@@ -46,6 +46,7 @@ urlpatterns = [
     path('media_scrape/download_file/', media_scrape_main.download_file),
 
     # app_word_cloud
-    path('word_cloud/', word_cloud_main.index)
+    path('word_cloud/', word_cloud_main.index),
+        path('word_cloud/apply/', word_cloud_main.apply)
 
 ]
