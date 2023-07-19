@@ -7,11 +7,13 @@ from .app_root.main import Main as RootMain
 from .app_draw_frame.main import Main as DrawFrameMain
 from .app_limited_time_sharing.main import Main as LimitedTimeSharingMain
 from .app_media_scrape.main import Main as MediaScrapeMain
+from .app_word_cloud.main import Main as WordCloudMain
 
 root_main = RootMain()
 draw_frame_main = DrawFrameMain()
 limited_time_sharing_main = LimitedTimeSharingMain()
 media_scrape_main = MediaScrapeMain()
+word_cloud_main = WordCloudMain()
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -41,5 +43,9 @@ urlpatterns = [
     # app_media_scrape
     path('media_scrape/', media_scrape_main.index),
     path('media_scrape/scrape_download/', media_scrape_main.scrape_download),
-    path('media_scrape/download_file/', media_scrape_main.download_file)
+    path('media_scrape/download_file/', media_scrape_main.download_file),
+
+    # app_word_cloud
+    path('word_cloud/', word_cloud_main.index)
+
 ]
