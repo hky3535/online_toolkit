@@ -37,14 +37,31 @@
                     <div id="other_settings_div">
                         <h1>参数设置</h1>
 
+                        <select id="type_select">
+                            <option value="pure_color">纯色</option>
+                            <option value="mask">形状</option>
+                            <option value="bg">背景</option>
+                        </select>
+
+                        <!-- 纯色：词云尺寸 背景颜色 生成字颜色 -->
+                        <!-- 形状：词云形状 生成字颜色 边缘属性 -->
+                        <!-- 背景：词云背景 边缘属性 -->
+
                         <div id="options_div">
                             <ul id="options_ul">
                                 <li>
+                                    <label>词云背景：</label>
+                                    <label id="current_bg">无背景</label>
+                                    <button id="default_bg_button">还原</button>
+                                    <input type="file" id="select_bg" multiple="false" accept=".jpg,.png" style="display: none;">
+                                    <button id="select_bg_button">上传</button>
+                                </li> 
+                                <li>
                                     <label>词云形状：</label>
-                                    <label id="current_shape">无形状</label>
-                                    <button id="default_button">还原</button>
-                                    <input type="file" id="select_file" multiple="false" accept=".jpg,.png" style="display: none;">
-                                    <button id="select_button">上传</button>
+                                    <label id="current_mask">无形状</label>
+                                    <button id="default_mask_button">还原</button>
+                                    <input type="file" id="select_mask" multiple="false" accept=".jpg,.png" style="display: none;">
+                                    <button id="select_mask_button">上传</button>
                                 </li> 
                                 <li>
                                     <label>词云尺寸：</label>
@@ -83,6 +100,8 @@
 
                             </ul>
                         </div>
+
+
                         
                         <button id="apply_button">应用</button>
                         <button id="generate_button">生成</button>

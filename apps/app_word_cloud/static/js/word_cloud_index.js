@@ -9,10 +9,15 @@ const text_textarea = document.getElementById('text_textarea');
 const user_dict_paste_button = document.getElementById('user_dict_paste_button');
 const user_dict_clear_button = document.getElementById('user_dict_clear_button');
 const user_dict_textarea = document.getElementById('user_dict_textarea');
-/**词云形状 词云尺寸*/
-const current_shape = document.getElementById('current_shape');
-const default_button = document.getElementById('default_button');
-const select_file = document.getElementById('select_file'); const select_button = document.getElementById('select_button'); select_button.addEventListener('click', () => {select_file.click();});
+/**词云背景 词云形状 词云尺寸*/
+const current_bg = document.getElementById('current_bg');
+const default_bg_button = document.getElementById('default_bg_button');
+const select_bg = document.getElementById('select_bg'); 
+const select_bg_button = document.getElementById('select_bg_button'); select_bg_button.addEventListener('click', () => {select_bg.click();});
+const current_mask = document.getElementById('current_mask');
+const default_mask_button = document.getElementById('default_mask_button');
+const select_mask = document.getElementById('select_mask'); 
+const select_mask_button = document.getElementById('select_mask_button'); select_mask_button.addEventListener('click', () => {select_mask.click();});
 const width = document.getElementById('width'); const height = document.getElementById('height');
 /**词云颜色*/
 const h_lower = document.getElementById('h_lower'); const h_upper = document.getElementById('h_upper');
@@ -52,57 +57,57 @@ function status_popup(seconds, text) {
     }, seconds*1000);
 }
 
-select_file.addEventListener('change', (event) => {
-    /**
-     * 查看选择的文件的数量
-     * 如果什么都没选择就退出
-     */
-    selected_files_number = event.target.files.length;
-    if (selected_files_number === 0) {
-        status_popup(0.5, "未选择文件");    
-        return;
-    }
-    if (selected_files_number >= 2) {
-        status_popup(0.5, "选择文件过多");    
-        return;
-    }
+select_bg.addEventListener('change', (event) => {
+    let selected_files_number = event.target.files.length;
+    if (selected_files_number === 0) {status_popup(0.5, "未选择文件"); return;}
+    if (selected_files_number >= 2) {status_popup(0.5, "选择文件过多"); return;}
 
     let file = event.target.files[0];
     let reader = new FileReader();
-  
     reader.onload = function() {
-        let binaryData = reader.result;
-        let base64Data = btoa(binaryData);
-        apply_json["shape"] = base64Data;
-        current_shape.innerHTML = "已上传";
+        let binaryData = reader.result; let base64Data = btoa(binaryData);
+        apply_json["bg"] = base64Data;
+        current_bg.innerHTML = "已上传";
     };
+    reader.readAsBinaryString(file);
+});
+select_mask.addEventListener('change', (event) => {
+    let selected_files_number = event.target.files.length;
+    if (selected_files_number === 0) {status_popup(0.5, "未选择文件"); return;}
+    if (selected_files_number >= 2) {status_popup(0.5, "选择文件过多"); return;}
 
+    let file = event.target.files[0];
+    let reader = new FileReader();
+    reader.onload = function() {
+        let binaryData = reader.result; let base64Data = btoa(binaryData);
+        apply_json["mask"] = base64Data;
+        current_mask.innerHTML = "已上传";
+    };
     reader.readAsBinaryString(file);
 });
 
 function check_apply() {
     if (text_textarea.value === '') {text_textarea.value = 'hello world!';}
     if (user_dict_textarea.value === '') {user_dict_textarea.value = 'hello\nworld';}
-    if (select_file.value === '') {apply_json["shape"] = "default";}
+    if (select_bg.value === '') {apply_json["bg"] = "default";}
+    if (select_mask.value === '') {apply_json["mask"] = "default";}
 
+    if (width.value === '' || parseInt(width.value, 10) > 1920) {width.value = '1920';} 
+    if (parseInt(width.value, 10) < 640) {width.value = '640';}
+    if (height.value === '' || parseInt(width.value, 10) > 1080) {height.value = '1080';}
+    if (parseInt(width.value) < 360) {width.value = '360';}
 
+    if (h_lower.value === '' || parseInt(h_lower.value, 10) < 0) {h_lower.value = '0';} 
+    if (h_upper.value === '' || parseInt(h_upper.value, 10) > 360) {h_upper.value = '360';}
+    if (parseInt(h_lower.value, 10) > parseInt(h_upper.value, 10)) {h_lower.value = h_upper.value;}
 
-    if (width.value === '' || width.value > '1920') {width.value = '1920';} 
-    if (width.value < '640') {width.value = '640';}
-    if (height.value === '' || width.value > '1080') {height.value = '1080';}
-    if (width.value < '360') {width.value = '360';}
+    if (s_lower.value === '' || parseInt(s_lower.value, 10) < 0) {s_lower.value = '0';} 
+    if (s_upper.value === '' || parseInt(s_upper.value, 10) > 100) {s_upper.value = '100';}
+    if (parseInt(s_lower.value, 10) > parseInt(s_upper.value, 10)) {s_lower.value = s_upper.value;}
 
-    if (h_lower.value === '' || h_lower.value < '0') {h_lower.value = '0';} 
-    if (h_upper.value === '' || h_upper.value > '360') {h_upper.value = '360';}
-    if (h_lower.value > h_upper.value) {h_lower.value = h_upper.value;}
-
-    if (s_lower.value === '' || s_lower.value < '0') {s_lower.value = '0';} 
-    if (s_upper.value === '' || s_upper.value > '100') {s_upper.value = '100';}
-    if (s_lower.value > s_upper.value) {s_lower.value = s_upper.value;}
-
-    if (l_lower.value === '' || l_lower.value < '0') {l_lower.value = '0';} 
-    if (l_upper.value === '' || l_upper.value > '100') {l_upper.value = '100';}
-    if (l_lower.value > l_upper.value) {l_lower.value = l_upper.value;}
+    if (l_lower.value === '' || parseInt(l_lower.value, 10) < 0) {l_lower.value = '0';} 
+    if (l_upper.value === '' || parseInt(l_upper.value, 10) > 100) {l_upper.value = '100';}
+    if (parseInt(l_lower.value, 10) > parseInt(l_upper.value, 10)) {l_lower.value = l_upper.value;}
 }
 
 function apply() {
@@ -191,7 +196,8 @@ $("#text_clear_button").click(function() {});
 $("#user_dict_paste_button").click(function() {});
 $("#user_dict_clear_button").click(function() {});
 
-$("#default_button").click(function() {current_shape.innerHTML = "无形状"; apply_json["shape"] = "default";});
+$("#default_bg_button").click(function() {current_bg.innerHTML = "无背景"; apply_json["bg"] = "default";});
+$("#default_mask_button").click(function() {current_mask.innerHTML = "无形状"; apply_json["mask"] = "default";});
 $("#select_button").click(function() {});
 $("#apply_button").click(function() {apply();});
 $("#generate_button").click(function() {generate();});

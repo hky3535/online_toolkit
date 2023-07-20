@@ -96,14 +96,14 @@ body, html {
 }
 #apply_button, #generate_button{
     width: 100%;
-    height: 60px;
-    font-size: 16px;
+    font-size: 20px;
     background-color: rgba(216, 225, 233, 1);
-    border-radius: 5px;
+    border-radius: 8px;
     border: 2px solid rgba(179, 197, 215, 1);
     color: rgba(70, 70, 70, 1.0);
     text-decoration: none;
     text-align: center;
+    font-weight: 800;
 }
 #apply_button:hover, #generate_button:hover {
     background-color: rgba(179, 197, 215, 1);
@@ -234,4 +234,29 @@ div::-ms-thumb {
 }
 div::-ms-thumb:hover {
     background-color: #aaa;
+}
+select {
+    width: 100%;
+    font-size: 20px;
+    background-color: rgba(216, 225, 233, 1);
+    border-radius: 8px;
+    border: 2px solid rgba(179, 197, 215, 1);
+    color: rgba(70, 70, 70, 0.9);
+    text-decoration: none;
+    text-align: center;
+    font-weight: 800;
+}
+option {
+    font-size: 20px;
+    background-color: rgba(216, 225, 233, 1);
+    border-radius: 8px;
+    border: 2px solid rgba(179, 197, 215, 1);
+    color: rgba(70, 70, 70, 0.9);
+    text-decoration: none;
+    text-align: center;
+    font-weight: 800;
+}
+select:hover {
+    background-color: rgba(179, 197, 215, 1);
+    border: 2px solid rgba(117, 158, 184, 1);
 }

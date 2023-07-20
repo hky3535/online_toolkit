@@ -474,7 +474,7 @@ function delete_file() {
     function del_fetch(index) {
         if (index >= del_indexes.length) {refresh_files_list(current_folder); status_popup(1, "文件删除成功！"); return;}
 
-        fetch('/delete_file/', {     // 发送POST请求获取文件夹下对应的文件列表
+        fetch('/draw_frame/delete_file/', {     // 发送POST请求获取文件夹下对应的文件列表
             method: 'POST',                 // 发送请求：{}
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
