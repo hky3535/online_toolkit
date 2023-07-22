@@ -34,75 +34,125 @@
                         <textarea id="user_dict_textarea"></textarea>
                     </div>
                     
-                    <div id="other_settings_div">
+                    <div id="generate_settings_div">
                         <h1>参数设置</h1>
 
                         <select id="type_select">
-                            <option value="pure_color">纯色</option>
-                            <option value="mask">形状</option>
-                            <option value="bg">背景</option>
+                            <option value="type_pure">纯色</option>
+                            <option value="type_mask">形状</option>
+                            <option value="type_bg">背景</option>
                         </select>
+                        
+                        <div id="settings_switch_div">
 
-                        <!-- 纯色：词云尺寸 背景颜色 生成字颜色 -->
-                        <!-- 形状：词云形状 生成字颜色 边缘属性 -->
-                        <!-- 背景：词云背景 边缘属性 -->
+                            <!-- 纯色：词云尺寸 背景颜色 生成字颜色 -->
+                            <div id="type_pure_div">
+                                <ul id="type_pure_ul">
 
-                        <div id="options_div">
-                            <ul id="options_ul">
-                                <li>
-                                    <label>词云背景：</label>
-                                    <label id="current_bg">无背景</label>
-                                    <button id="default_bg_button">还原</button>
-                                    <input type="file" id="select_bg" multiple="false" accept=".jpg,.png" style="display: none;">
-                                    <button id="select_bg_button">上传</button>
-                                </li> 
-                                <li>
-                                    <label>词云形状：</label>
-                                    <label id="current_mask">无形状</label>
-                                    <button id="default_mask_button">还原</button>
-                                    <input type="file" id="select_mask" multiple="false" accept=".jpg,.png" style="display: none;">
-                                    <button id="select_mask_button">上传</button>
-                                </li> 
-                                <li>
-                                    <label>词云尺寸：</label>
-                                    <input type="number" id="width" value="1920">
-                                    <label>*</label>
-                                    <input type="number" id="height" value="1080">
-                                </li> 
+                                    <li>
+                                        <label>词云尺寸：</label>
+                                        <input type="number" id="pure_width"> <label>*</label> <input type="number" id="pure_height">
+                                    </li> 
 
-                                </br>
+                                    <li>
+                                        <label>背景颜色：</label>
+                                        <input type="number" id="pure_bg_b">
+                                        <input type="number" id="pure_bg_g">
+                                        <input type="number" id="pure_bg_r">
+                                    </li>
+                                    
+                                    </br>
 
-                                <li>
-                                    <label>色相：</label>
-                                    <input type="number" id="h_lower" value="0">
-                                    <label>~</label>
-                                    <input type="number" id="h_upper" value="360">
-                                </li>
-                                <li>
-                                    <label>饱和：</label>
-                                    <input type="number" id="s_lower" value="0">
-                                    <label>~</label>
-                                    <input type="number" id="s_upper" value="100">
-                                </li>
-                                <li>
-                                    <label>亮度：</label>
-                                    <input type="number" id="l_lower" value="0">
-                                    <label>~</label>
-                                    <input type="number" id="l_upper" value="100">
-                                </li>
+                                    <li> <label>单词色相：</label> <input type="number" id="pure_h_0"> <label>~</label> <input type="number" id="pure_h_1"> </li>
+                                    <li> <label>单词饱和：</label> <input type="number" id="pure_s_0"> <label>~</label> <input type="number" id="pure_s_1"> </li>
+                                    <li> <label>单词亮度：</label> <input type="number" id="pure_l_0"> <label>~</label> <input type="number" id="pure_l_1"> </li>
 
-                                </br>
+                                </ul>
+                            </div>
 
-                                <li>
-                                    <label>单次生成：</label>
-                                    <input type="number" id="generate_number"  value="1">
-                                </li>
+                            <!-- 形状：词云形状 生成字颜色 边缘属性 -->
+                            <div id="type_mask_div">
+                                <ul id="type_mask_ul">
 
-                            </ul>
+                                    <li>
+                                        <label>词云形状：</label>
+                                        <button id="mask_default_button">默认</button>
+                                        <button id="mask_select_button">上传</button> <input type="file" id="mask_select" multiple="false" accept=".jpg,.png" style="display: none;">
+                                        <label id="mask_selected">default</label>
+                                    </li>
+
+                                    </br>
+
+                                    <li>
+                                        <label>背景颜色：</label>
+                                        <input type="number" id="mask_bg_b">
+                                        <input type="number" id="mask_bg_g">
+                                        <input type="number" id="mask_bg_r">
+                                    </li>
+
+                                    </br>
+
+                                    <li> <label>单词色相：</label> <input type="number" id="mask_h_0"> <label>~</label> <input type="number" id="mask_h_1"> </li>
+                                    <li> <label>单词饱和：</label> <input type="number" id="mask_s_0"> <label>~</label> <input type="number" id="mask_s_1"> </li>
+                                    <li> <label>单词亮度：</label> <input type="number" id="mask_l_0"> <label>~</label> <input type="number" id="mask_l_1"> </li>
+                                    
+                                    </br>
+
+                                    <li>
+                                        <label>边缘宽度：</label>
+                                        <input type="number" id="mask_border_thickness">
+                                    </li>
+
+                                    <li>
+                                        <label>边缘颜色：</label>
+                                        <input type="number" id="mask_border_b">
+                                        <input type="number" id="mask_border_g">
+                                        <input type="number" id="mask_border_r">
+                                    </li>
+
+                                </ul>
+                            </div>
+
+                            <!-- 背景：词云背景 边缘属性 -->
+                            <div id="type_bg_div">
+                                <ul id="type_bg_ul">
+
+                                    <li>
+                                        <label>词云背景：</label>
+                                        <button id="bg_default_button">还原</button>
+                                        <button id="bg_select_button">上传</button> <input type="file" id="bg_select" multiple="false" accept=".jpg,.png" style="display: none;">
+                                        <label id="bg_selected">default</label>
+                                    </li> 
+
+                                    </br>
+
+                                    <li>
+                                        <label>背景颜色：</label>
+                                        <input type="number" id="bg_bg_b">
+                                        <input type="number" id="bg_bg_g">
+                                        <input type="number" id="bg_bg_r">
+                                    </li>
+
+                                    </br>
+
+                                    <li>
+                                        <label>边缘宽度：</label>
+                                        <input type="number" id="bg_border_thickness">
+                                    </li>
+
+                                    <li>
+                                        <label>边缘颜色：</label>
+                                        <input type="number" id="bg_border_b">
+                                        <input type="number" id="bg_border_g">
+                                        <input type="number" id="bg_border_r">
+                                    </li>
+
+                                </ul>
+                            </div>
+
                         </div>
 
-
-                        
+                        <div> <label>生成数量：</label> <input type="number" id="generate_number"> </div>
                         <button id="apply_button">应用</button>
                         <button id="generate_button">生成</button>
                     </div>
