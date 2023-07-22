@@ -162,7 +162,6 @@
             <div id="files_div">
                 <h1>文件列表</h1>
                 <div id="files_button_div">
-                    <button id="deleteFile_button">删除</button>
                     <button id="selectallFile_button">全选</button>
                     <button id="downloadFile_button">下载</button>
                 </div>
@@ -176,8 +175,11 @@
                 <div id="file_preview_button_div">
                     <button id="last_button">上一张</button>
                     <button id="next_button">下一张</button>
+                    <label id="current_frame"></label>
                 </div>
-                <canvas id="wordcloud_canvas"></canvas>
+                <div id="wordcloud_div">
+                    <canvas id="wordcloud_canvas"></canvas>
+                </div>
             </div>
 
             <!-- 全局状态弹窗 -->

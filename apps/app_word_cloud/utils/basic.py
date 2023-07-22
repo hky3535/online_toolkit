@@ -3,7 +3,6 @@ import jieba
 from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator
 import os
 import copy
-import matplotlib.pyplot as plt
 from PIL import Image
 import numpy
 import base64
@@ -19,6 +18,7 @@ class Basic:
     def __init__(self):
         self.data_dict = {}
         self.wc_generator = None
+        self.words = None
 
         self.base_dir = os.path.dirname(os.path.abspath(__file__))
         self.storage_dir = f"{self.base_dir}/storage"
@@ -103,11 +103,9 @@ class Basic:
         # 通过user_dict来获取到text的分割词
         text = self.data_dict['text']
         user_dict = self.data_dict['user_dict']
-        if text == "":
-            return
         jieba.load_userdict(user_dict.split("\n"))
         words_list = jieba.cut(text)
-        words = " ".join(words_list)
+        self.words = " ".join(words_list)
 
         # 获取到需要生成的样式
         type = self.data_dict['type']
@@ -118,9 +116,11 @@ class Basic:
         if type == "type_bg":
             self.wc_generator = type_bg(self.data_dict[type])
 
-        self.wc_generator.generate(words)
-        self.wc_generator.to_file(f"{self.storage_dir}/{str(identification_code)}/a.png")
-
-    def generate(self):
-        pass
-
+    def generate(self, data_dict):
+        self.wc_generator.generate(self.words)
+        self.wc_generator.to_file(f"{self.storage_dir}/{str(data_dict['identification_code'])}/{str(data_dict['latest_index'])}.png")
+    
+    def refresh_frame(self, data_dict):
+        jpg_frame = open(f"{self.storage_dir}/{str(data_dict['identification_code'])}/{str(data_dict['index'])}.png", "rb")
+        base64_frame = base64.b64encode(jpg_frame.read()).decode()
+        return base64_frame

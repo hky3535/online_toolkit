@@ -140,8 +140,11 @@ body, html {
     flex-direction: column;
     box-sizing: border-box;
 }
+#wordcloud_div {
+    width: 100%;
+    height: 100%;
+}
 #wordcloud_canvas {
-    flex: 1;
     width: 100%; height: 100%;
     background-color: rgba(0, 0, 0, 0.05);
     display: flex;

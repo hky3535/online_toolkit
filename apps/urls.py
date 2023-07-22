@@ -47,6 +47,8 @@ urlpatterns = [
 
     # app_word_cloud
     path('word_cloud/', word_cloud_main.index),
-        path('word_cloud/apply/', word_cloud_main.apply)
+        path('word_cloud/apply/', word_cloud_main.apply),
+        path('word_cloud/generate/', word_cloud_main.generate),
+        path('word_cloud/refresh_frame/', word_cloud_main.refresh_frame)
 
 ]

@@ -62,6 +62,7 @@ const files_ul = document.getElementById('files_ul');
 /**词云预览 */
 const last_button = document.getElementById('last_button');
 const next_button = document.getElementById('next_button');
+const current_frame = document.getElementById('current_frame');
 const wordcloud_canvas = document.getElementById('wordcloud_canvas');
 
 const status_popup_div = document.getElementById('status_popup_div');
@@ -70,7 +71,7 @@ const status_popup_label = document.getElementById('status_popup_label');
 const identification_code = Math.floor(Math.random() * 9000000) + 1000000;
 var default_json = {
     'identification_code': identification_code,
-    'text': '',
+    'text': '你好，世界！\nHello World!',
     'user_dict': '',
     'type': 'type_pure',
     'type_pure': {
@@ -93,6 +94,8 @@ var default_json = {
     }
 };
 var apply_json = default_json;
+var latest_index = 0;
+var applied = false;
 
 function status_popup(seconds, text) {
     status_popup_label.textContent = text;
@@ -146,6 +149,38 @@ bg_select.addEventListener('change', (event) => {
     reader.readAsBinaryString(file);
 });
 
+function refresh_frame(identification_code, index) {
+    current_frame.innerHTML = `${identification_code}/${index}.png`;
+
+    fetch('/word_cloud/refresh_frame/', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({'identification_code': identification_code, 'index': index})
+    })
+    .then(response => response.json())
+    .then(data => {
+        let ctx = wordcloud_canvas.getContext("2d");
+        let frame = new Image();
+        
+        frame.onload = function() {
+            wordcloud_canvas.width = wordcloud_canvas.clientWidth;
+            wordcloud_canvas.height = wordcloud_canvas.clientHeight;
+
+            let scale = Math.min(wordcloud_canvas.clientWidth / frame.width, wordcloud_canvas.clientHeight / frame.height);
+
+            let width = frame.width * scale;
+            let height = frame.height * scale;
+
+            let x = (wordcloud_canvas.clientWidth - width) / 2;
+            let y = (wordcloud_canvas.clientHeight - height) / 2;
+
+            ctx.drawImage(frame, x, y, width, height);
+        };
+        frame.src = 'data:image/png;base64,' + data['frame'];
+    })
+    
+}
+
 function check_apply() {
     /**给空置的内容填入初始值 */
     /**判断所有的阈值区间 */
@@ -184,6 +219,9 @@ function check_apply() {
     if (bg_border_b.value === ''            || !inRange(parseInt(bg_border_b.value), 0, 255))                       {bg_border_b.value = default_json['type_bg']['border_bgr'][0];}
     if (bg_border_g.value === ''            || !inRange(parseInt(bg_border_g.value), 0, 255))                       {bg_border_g.value = default_json['type_bg']['border_bgr'][1];}
     if (bg_border_r.value === ''            || !inRange(parseInt(bg_border_r.value), 0, 255))                       {bg_border_r.value = default_json['type_bg']['border_bgr'][2];}
+
+    if (text_textarea.value === '') {text_textarea.value = default_json['text'];}
+    if (generate_number.value === '') {generate_number.value = '1';}
 
     /**给上报json赋值 */
     apply_json['text'] = text_textarea.value;
@@ -229,6 +267,7 @@ function apply() {
     })
     .then(response => response.json())
     .then(data => {
+        applied = true;
         setTimeout(() => {  // 几秒后关闭悬浮窗 复原主屏幕
             /**
              * 解除全局事件禁用
@@ -244,15 +283,58 @@ function apply() {
 }
 
 function generate() {
+    if (!applied) {
+        status_popup(1, "设置还未应用！");
+        return;
+    }
     let times = parseInt(generate_number.value);
-    console.info(times);
+
+    status_popup_div.style.display = 'flex';
+    main_div.style.pointerEvents = 'none';
+    generate_fetch(0);
+    
+    function generate_fetch(index) {
+        if (index >= times) {
+            status_popup_label.textContent = `（${index}/${times}）生成完成！`;
+            refresh_frame(identification_code, latest_index-1);   /**刷新最新图像 */
+            setTimeout(() => {
+                status_popup_div.style.display = 'none';
+                main_div.style.pointerEvents = 'auto';
+            }, 1000);
+            return;
+        }
+
+        status_popup_label.textContent = `（${index+1}/${times}）生成中...`;
+        fetch('/word_cloud/generate/', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                "identification_code": identification_code,
+                "latest_index": latest_index
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            /**创建新的文件列表内容 */
+            const file_li = document.createElement('li');
+            const file_cb = document.createElement('input'); file_cb.type = 'checkbox';
+            const file_a = document.createElement('a'); file_a.href = '#'; file_a.textContent = `${identification_code}/${latest_index}.png`;
+            file_a.addEventListener('click', refresh_frame.bind(null, identification_code, latest_index));
+            file_li.appendChild(file_cb); file_li.appendChild(file_a);
+            files_ul.appendChild(file_li);
+            /**迭代 */
+            latest_index++; index++; generate_fetch(index);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+
+
+
+
+
 }
-
-
-
-
-
-
 
 
 
@@ -297,7 +379,6 @@ $("#bg_select_button").click(function() {bg_select.click();})
 $("#apply_button").click(function() {apply();});
 $("#generate_button").click(function() {generate();});
 
-$("#deleteFile_button").click(function() {});
 $("#selectallFile_button").click(function() {});
 $("#downloadFile_button").click(function() {});
 
