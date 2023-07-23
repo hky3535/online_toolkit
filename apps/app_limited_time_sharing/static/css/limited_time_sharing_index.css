@@ -1,9 +1,18 @@
 /* 何恺悦 hekaiyue 2023-06-29 */
-body, html {
+html {
     width: 100%; height: 100%;
-    margin: 0px; padding: 5px;
+}
+body {
+    width: 100%; height: 100%;
+    margin: 0px; padding: 10px;
     user-select: none;  /* 全局屏蔽文本选中动作 */
     box-sizing: border-box;
+}
+body {
+    background-image: var(--div_body_background);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 #main_div {
