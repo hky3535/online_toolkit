@@ -6,3 +6,7 @@ requests
 tzdata
 jieba
 wordcloud
+
+# opencv安装库文件
+# apt install libglib2.0-dev
+# apt install libgl1-mesa-glx
