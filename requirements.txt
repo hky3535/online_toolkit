@@ -4,3 +4,5 @@ natsort
 opencv-python
 requests
 tzdata
+jieba
+wordcloud
