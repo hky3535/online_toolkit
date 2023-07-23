@@ -36,3 +36,17 @@ class Main:
 
         frame = self.basic.refresh_frame(data_dict)
         return JsonResponse({'frame': frame})
+
+    def prepare_download_file(self, request):
+        data = request.body.decode('utf-8')
+        data_dict = json.loads(data)
+
+        self.basic.prepare_download_file(data_dict)
+        return JsonResponse({})
+
+    def download_file(self, request):
+        code = request.GET.get('code')  # 根据identify来下载文件
+        file = open(f"{self.basic.storage_dir}/download_temp/{code}", 'rb')
+        response = FileResponse(file)
+        response['Content-Disposition'] = f'attachment; filename="{code}"'
+        return response 

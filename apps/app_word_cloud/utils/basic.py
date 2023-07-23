@@ -7,12 +7,8 @@ from PIL import Image
 import numpy
 import base64
 import io
-"""
-机器学习是人工智能的一个分支
+import tarfile
 
-人工智能的
-机器学习
-"""
 
 class Basic:
     def __init__(self):
@@ -23,6 +19,7 @@ class Basic:
         self.base_dir = os.path.dirname(os.path.abspath(__file__))
         self.storage_dir = f"{self.base_dir}/storage"
         self.generate_dir(self.storage_dir)
+        self.generate_dir(f"{self.storage_dir}/download_temp")
     
     def generate_dir(self, dir):                # 确保文件下载目录存在
         if not os.path.exists(dir):
@@ -124,3 +121,16 @@ class Basic:
         jpg_frame = open(f"{self.storage_dir}/{str(data_dict['identification_code'])}/{str(data_dict['index'])}.png", "rb")
         base64_frame = base64.b64encode(jpg_frame.read()).decode()
         return base64_frame
+
+    def prepare_download_file(self, data_dict):
+        identification_code = str(data_dict['identification_code'])
+        download_code = str(data_dict['download_code'])
+        index = str(data_dict['download_index'])
+
+        download_tar_dir = f"{self.storage_dir}/download_temp/{identification_code}-{download_code}.tar"
+        
+        download_tar = tarfile.open(download_tar_dir, "a")
+        download_file_dir = f"{self.storage_dir}/{str(data_dict['identification_code'])}/{str(data_dict['download_index'])}.png"
+        download_tar.add(download_file_dir, arcname=f"{str(data_dict['download_index'])}.png")
+        download_tar.close()
+    

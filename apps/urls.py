@@ -49,6 +49,8 @@ urlpatterns = [
     path('word_cloud/', word_cloud_main.index),
         path('word_cloud/apply/', word_cloud_main.apply),
         path('word_cloud/generate/', word_cloud_main.generate),
-        path('word_cloud/refresh_frame/', word_cloud_main.refresh_frame)
+        path('word_cloud/refresh_frame/', word_cloud_main.refresh_frame),
+        path('word_cloud/prepare_download_file/', word_cloud_main.prepare_download_file),
+        path('word_cloud/download_file/', word_cloud_main.download_file)
 
 ]

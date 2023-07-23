@@ -178,7 +178,6 @@ function refresh_frame(identification_code, index) {
         };
         frame.src = 'data:image/png;base64,' + data['frame'];
     })
-    
 }
 
 function check_apply() {
@@ -337,6 +336,88 @@ function generate() {
 }
 
 
+function checkbox_status(ul) {
+    /**取出所有被勾选的index */
+    const indexes = [];
+
+    const li_list = ul.querySelectorAll("li");
+    li_list.forEach((li, index) => {
+        const checkbox = li.querySelector("input[type=checkbox]");
+        if (checkbox.checked) {
+            indexes.push(index);
+        }
+    });
+    indexes.reverse();
+    return indexes;
+}
+function select_all(ul) {
+    const li_list = ul.querySelectorAll("li");
+    /**判断是否有未选 如果有未选则执行全选 如果全都选择则执行取消 */
+    var select_all_flag = false;
+    li_list.forEach((li, index) => {
+        const checkbox = li.querySelector("input[type=checkbox]");
+        if (!checkbox.checked) {
+            select_all_flag = true;
+            return;
+        }
+    });
+
+    li_list.forEach((li, index) => {
+        const checkbox = li.querySelector("input[type=checkbox]");
+        checkbox.checked = select_all_flag;
+    });
+}
+function download() {
+    let download_indexes = checkbox_status(files_ul);
+    let download_num = download_indexes.length;
+    let download_code = Math.floor(Math.random() * 9000000) + 1000000
+
+    status_popup_div.style.display = 'flex';
+    main_div.style.pointerEvents = 'none';
+    download_fetch(0);
+
+    function download_fetch(index) {
+        if (index >= download_num) {
+            status_popup_label.textContent = `（${index}/${download_num}）下载准备完成！`;
+            setTimeout(() => {
+                status_popup_label.textContent = "下载开始！";
+                setTimeout(() => {
+                    /**
+                     * 隐藏状态弹窗
+                     * 解除全局事件禁用
+                     * 触发下载
+                     */
+                    status_popup_div.style.display = 'none';
+                    main_div.style.pointerEvents = 'auto';
+                    const link = document.createElement('a'); link.href = `/word_cloud/download_file/?code=${identification_code}-${download_code}.tar`; link.click();
+                }, 1000);
+            }, 1000);
+            return;
+        }
+        
+        status_popup_label.textContent = `（${index+1}/${download_num}）下载准备中...`;
+        fetch('/word_cloud/prepare_download_file/', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                "identification_code": identification_code,
+                "download_code": download_code,
+                "download_index": download_indexes[index],
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            index++; download_fetch(index);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+
+
+
+    }
+
+}
 
 
 
@@ -379,8 +460,8 @@ $("#bg_select_button").click(function() {bg_select.click();})
 $("#apply_button").click(function() {apply();});
 $("#generate_button").click(function() {generate();});
 
-$("#selectallFile_button").click(function() {});
-$("#downloadFile_button").click(function() {});
+$("#selectallFile_button").click(function() {select_all(files_ul);});
+$("#downloadFile_button").click(function() {download();});
 
 $("#last_button").click(function() {});
 $("#next_button").click(function() {});
