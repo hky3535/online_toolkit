@@ -2,12 +2,13 @@
 body, html {
     width: 100%; height: 100%;
     margin: 0px; padding: 5px;
+    background-color: var(--div_body);
     box-sizing: border-box;
 }
 
 #main_div {
     width: 100%; height: 100%;
-    background-color: rgba(179, 197, 215, 1);
+    background-color: var(--div_main);
     border-radius: 30px;
     padding: 20px;
     display: flex;
@@ -28,7 +29,7 @@ body, html {
 /*左0上 输入文本*/
 #text_div {
     width: 100%; height: 50%;
-    background-color: rgba(216, 225, 233, 0.8);
+    background-color: var(--div_secondary);
     border-radius: 20px;
     margin-bottom: 10px;
     padding: 10px;
@@ -40,13 +41,18 @@ body, html {
     width: 100%; height: 100%;
     font-family: "Microsoft YaHei";
     font-size: 14px;
-    color: rgba(70, 70, 70, 1);
-    background-color: rgba(0, 0, 0, 0);
-    border: 1px solid rgba(179, 197, 215, 1);
+    color: var(--text_small);
+    background-color: var(--textarea_normal);
+    border: 1px solid var(--textarea_normal_border);
     padding: 10px;
     border-radius: 10px;
     resize: none;
     box-sizing: border-box;
+}
+#text_textarea:focus {
+    outline: none;
+    background-color: var(--textarea_focus);
+    border-color: var(--textarea_focus_border);
 }
 
 /*左0下 全局设置*/
@@ -60,8 +66,8 @@ body, html {
 /*左0下左 用户词典*/
 #user_dict_div {
     width: 50%; height: 100%;
-    background-color: rgba(216, 225, 233, 0.8);
-    border-right: 1px solid rgba(179, 197, 215, 0.5);
+    background-color: var(--div_secondary);
+    border-right: 1px solid var(--div_border);
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
     padding: 10px;
@@ -73,18 +79,22 @@ body, html {
     width: 100%; height: 100%;
     font-family: "Microsoft YaHei";
     font-size: 14px;
-    color: rgba(70, 70, 70, 1);
-    background-color: rgba(0, 0, 0, 0);
-    border: 1px solid rgba(179, 197, 215, 1);
+    color: var(--text_small);
+    background-color: var(--textarea_normal);
+    border: 1px solid var(--textarea_normal_border);
     padding: 10px;
     border-radius: 10px;
     resize: none;
     box-sizing: border-box;
+}#user_dict_textarea:focus {
+    outline: none;
+    background-color: var(--textarea_focus);
+    border-color: var(--textarea_focus_border);
 }
 /*左0下右 参数设置*/
 #generate_settings_div {
     width: 50%; height: 100%;
-    background-color: rgba(216, 225, 233, 0.8);
+    background-color: var(--div_secondary);
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
     padding: 10px;
@@ -94,7 +104,7 @@ body, html {
 }
 #settings_switch_div {
     height: 100%;
-    border-bottom: 1px solid rgba(179, 197, 215, 0.5);
+    border-bottom: 1px solid var(--div_border);
 }
 #type_pure_div, #type_mask_div, #type_bg_div {
     width: 100%;
@@ -103,23 +113,23 @@ body, html {
 #apply_button, #generate_button{
     width: 100%;
     font-size: 20px;
-    background-color: rgba(216, 225, 233, 1);
+    background-color: var(--button_normal);
     border-radius: 8px;
-    border: 2px solid rgba(179, 197, 215, 1);
-    color: rgba(70, 70, 70, 1.0);
+    border: 2px solid var(--button_normal_border);
+    color: var(--text_small);
     text-decoration: none;
     text-align: center;
     font-weight: 800;
 }
 #apply_button:hover, #generate_button:hover {
-    background-color: rgba(179, 197, 215, 1);
-    border: 2px solid rgba(117, 158, 184, 1);
+    background-color: var(--button_hover);
+    border: 2px solid var(--button_hover_border);
 }
 
 /*左1 文件列表*/
 #files_div {
     width: 250px; height: 100%;
-    background-color: rgba(216, 225, 233, 0.8);
+    background-color: var(--div_secondary);
     margin-left: 20px;
     border-radius: 20px;
     padding: 10px;
@@ -132,7 +142,7 @@ body, html {
 #file_preview_div {
     flex: 1;
     width: 100%; height: 100%;
-    background-color: rgba(216, 225, 233, 0.8);
+    background-color: var(--div_secondary);
     margin-left: 20px;
     border-radius: 20px;
     padding: 10px;
@@ -146,7 +156,7 @@ body, html {
 }
 #wordcloud_canvas {
     width: 100%; height: 100%;
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: var(--canvas_normal);
     display: flex;
     box-sizing: border-box;
 }
@@ -167,7 +177,7 @@ body, html {
 /* 全局状态弹窗 */
 #status_popup_div {
     position: absolute;
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: var(--div_status);
     display: none;
     border-radius: 10px;
     top: 50%; left: 50%; width: 260px; height: 80px; transform: translate(-50%, -50%);
@@ -175,7 +185,7 @@ body, html {
     z-index: 2001;
 }
 #status_popup_label {
-    color: rgba(60, 60, 60, 0.8);
+    color: var(--text_large);
     font-size: 20px;
     font-weight: bold;
 }
@@ -185,8 +195,8 @@ input[type="number"] {
     /* flex: 1; */
     width: 60px;
     height: 25px;
-    background-color: rgba(216, 225, 233, 1);
-    border: 1px solid rgba(179, 197, 215, 1);
+    background-color: var(--input_normal);
+    border: 1px solid var(--input_normal_border);
     border-radius: 3px;
     font-size: 16px;
     box-sizing: border-box;
@@ -203,29 +213,29 @@ li {
 a {
     width: 100%;
     text-decoration: none; /* 移除链接的下划线 */
-    color: rgba(70, 70, 70, 1.0); /* 设置文字颜色 */
+    color: var(--text_small); /* 设置文字颜色 */
 }
 li:hover {   /* li标签的移入动画 */
-    background-color: rgba(179, 197, 215, 1);
+    background-color: var(--li_hover);
     transition: background-color 0.2s ease;
 }
 
 h1 {
-    color: rgba(60, 60, 60, 1.0);
+    color: var(--text_large);
 }
 
 button {
     font-size: 16px;
-    background-color: rgba(216, 225, 233, 1);
+    background-color: var(--button_normal);
     border-radius: 3px;
-    border: 1px solid rgba(179, 197, 215, 1);
-    color: rgba(70, 70, 70, 1.0);
+    border: 1px solid var(--button_normal_border);
+    color: var(--text_small);
     text-decoration: none;
     text-align: center;
 }
 button:hover {
-    background-color: rgba(179, 197, 215, 1);
-    border: 1px solid rgba(117, 158, 184, 1);
+    background-color: var(--button_hover);
+    border: 1px solid var(--button_hover_border);
 }
 
 div::-webkit-scrollbar {
@@ -233,41 +243,40 @@ div::-webkit-scrollbar {
     height: 8px;
 }
 div::-webkit-scrollbar-thumb {
-    background-color: #ccc;
+    background-color: var(--scrollbar_normal);
     border-radius: 8px;
 }
 div::-webkit-scrollbar-thumb:hover {
-    background-color: #aaa; 
+    background-color: var(--scrollbar_hover); 
 }
 div::-ms-thumb {
-    background-color: #ccc;
+    background-color: var(--scrollbar_normal);
     border-radius: 8px;
 }
 div::-ms-thumb:hover {
-    background-color: #aaa;
+    background-color: var(--scrollbar_hover);
 }
 select {
     width: 100%;
     font-size: 20px;
-    background-color: rgba(216, 225, 233, 1);
+    background-color: var(--select_normal);
     border-radius: 8px;
-    border: 2px solid rgba(179, 197, 215, 1);
-    color: rgba(70, 70, 70, 0.9);
+    border: 2px solid var(--select_normal_border);
+    color: var(--text_small);
     text-decoration: none;
     text-align: center;
     font-weight: 800;
 }
 option {
     font-size: 20px;
-    background-color: rgba(216, 225, 233, 1);
+    background-color: var(--select_normal);
     border-radius: 8px;
-    border: 2px solid rgba(179, 197, 215, 1);
-    color: rgba(70, 70, 70, 0.9);
+    color: var(--text_small);
     text-decoration: none;
     text-align: center;
     font-weight: 800;
 }
 select:hover {
-    background-color: rgba(179, 197, 215, 1);
-    border: 2px solid rgba(117, 158, 184, 1);
+    background-color: var(--select_hover);
+    border: 2px solid var(--select_hover_border);
 }
