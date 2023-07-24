@@ -7,6 +7,13 @@ django+html+css+js
 * 媒体抓取
 * 词云生成
 
+## docker使用方式
+* git clone https://github.com/hky3535/online_toolkit.git
+* cd online_toolkit
+* docker build -t online_toolkit:latest .
+* docker run -itd --name online_toolkit -p 12345:30000 --restart always --privileged online_toolkit:latest
+* 访问https://0.0.0.0:12345进入网站
+
 ## 功能详细介绍
 ### 绘制图像
 * 可以创建文件夹、上传图像文件，然后在右侧绘图区域绘制各种形状线条
