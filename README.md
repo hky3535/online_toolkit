@@ -8,6 +8,9 @@ django+html+css+js
 * 词云生成
 
 ## docker使用方式
+* 一键部署
+> git clone https://github.com/hky3535/online_toolkit.git && cd online_toolkit && docker build -t online_toolkit:latest . && docker run -itd --name online_toolkit -p 12345:30000 --restart always --privileged online_toolkit:latest
+* 分解部署
 * git clone https://github.com/hky3535/online_toolkit.git
 * cd online_toolkit
 * docker build -t online_toolkit:latest .
