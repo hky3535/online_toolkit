@@ -8,14 +8,18 @@ django+html+css+js
 * 词云生成
 
 ## docker使用方式
-* 一键部署
-> git clone https://github.com/hky3535/online_toolkit.git && cd online_toolkit && docker build -t online_toolkit:latest . && docker run -itd --name online_toolkit -p 12345:30000 --restart always --privileged online_toolkit:latest
-* 分解部署
+### 一键部署
+```bash
+git clone https://github.com/hky3535/online_toolkit.git && cd online_toolkit && docker build -t online_toolkit:latest . && docker run -itd --name online_toolkit -p 12345:30000 --restart always --privileged online_toolkit:latest
+```
+* 可以使用docker logs online_toolkit查看初始化进度，等待所有初始化库安装完成即可开始运行
+### 分解部署
 * git clone https://github.com/hky3535/online_toolkit.git
 * cd online_toolkit
 * docker build -t online_toolkit:latest .
 * docker run -itd --name online_toolkit -p 12345:30000 --restart always --privileged online_toolkit:latest
-* 访问https://0.0.0.0:12345进入网站
+* 可以使用docker logs online_toolkit查看初始化进度，等待所有初始化库安装完成即可开始运行
+### 访问https://0.0.0.0:12345进入网站
 
 ## 功能详细介绍
 ### 绘制图像
