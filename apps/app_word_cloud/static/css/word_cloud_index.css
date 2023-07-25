@@ -9,7 +9,7 @@ body {
     box-sizing: border-box;
 }
 body {
-    background-image: url("body.jpg");
+    background-image: var(--div_body_background);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -40,7 +40,6 @@ body {
     width: 100%; height: 50%;
     background-color: var(--div_secondary);
     border-radius: 20px;
-    margin-bottom: 10px;
     padding: 10px;
     display: flex;
     flex-direction: column;
@@ -68,7 +67,7 @@ body {
 #settings_div {
     width: 100%; height: 50%;
     display: flex;
-    margin-top: 10px;
+    margin-top: 20px;
     flex-direction: row;
     box-sizing: border-box;
 }
@@ -112,15 +111,19 @@ body {
     box-sizing: border-box;
 }
 #settings_switch_div {
-    height: 100%;
+    width: 100%; height: 100%;
     border-bottom: 1px solid var(--div_border);
 }
 #type_pure_div, #type_mask_div, #type_bg_div {
-    width: 100%;
+    width: 100%; height: 500px;
 }
 #type_pure_div {display: flex;} #type_mask_div {display: none;} #type_bg_div {display: none;}
+#apply_generate_div {
+    display: flex;
+    flex-direction: row;
+}
 #apply_button, #generate_button{
-    width: 100%;
+    flex: 1;
     font-size: 20px;
     background-color: var(--button_normal);
     border-radius: 8px;
@@ -202,13 +205,18 @@ body {
 /* 全局元素 */
 input[type="number"] {
     /* flex: 1; */
-    width: 60px;
+    width: 50px;
     height: 25px;
     background-color: var(--input_normal);
     border: 1px solid var(--input_normal_border);
     border-radius: 3px;
     font-size: 16px;
     box-sizing: border-box;
+}
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 ul {
     width: 100%;
@@ -278,7 +286,7 @@ select {
 }
 option {
     font-size: 20px;
-    background-color: var(--select_normal);
+    background-color: var(--option_normal);
     border-radius: 8px;
     color: var(--text_small);
     text-decoration: none;

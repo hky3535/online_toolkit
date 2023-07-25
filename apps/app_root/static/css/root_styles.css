@@ -62,7 +62,7 @@
     --select_normal_border: rgba(0, 0, 0, 0);
     --select_hover: rgba(50, 50, 50, 0.25);
     --select_hover_border: rgba(0, 0, 0, 0);
-    --option_normal: rgba(0, 0, 0, 0.25);
+    --option_normal: rgba(50, 50, 50, 0.25);
 
     --textarea_normal: rgba(0, 0, 0, 0);
     --textarea_normal_border: rgba(0, 0, 0, 0.5);

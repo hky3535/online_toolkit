@@ -10,7 +10,7 @@ body {
     box-sizing: border-box;
 }
 body {
-    background-image: url("body.jpg");
+    background-image: var(--div_body_background);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

@@ -10,7 +10,7 @@ body {
     box-sizing: border-box;
 }
 body {
-    background-image: url("body.jpg");
+    background-image: var(--div_body_background);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -110,7 +110,7 @@ select {
 }
 option {
     font-size: 20px;
-    background-color: var(--select_normal);
+    background-color: var(--option_normal);
     border-radius: 8px;
     color: var(--text_small);
     text-decoration: none;
