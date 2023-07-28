@@ -45,6 +45,7 @@
     --div_body: rgba(0, 0, 0, 0);
     --div_main: rgba(0, 0, 0, 0.5);
     --div_secondary: rgba(255, 255, 255, 0.5);
+    --div_tertiary: rgba(0, 0, 0, 0.5);
     --div_popup: rgba(255, 255, 255, 0.95);
     --div_status: rgba(255, 255, 255, 0.8);
 
@@ -52,11 +53,17 @@
 
     --text_large: rgba(20, 20, 20, 1.0);
     --text_small: rgba(30, 30, 30, 0.9);
+    --text_white_large: rgba(235, 235, 235, 1.0);
+    --text_white_small: rgba(225, 225, 225, 0.9);
 
     --button_normal: rgba(0, 0, 0, 0.25);
     --button_normal_border: rgba(0, 0, 0, 0);
     --button_hover: rgba(50, 50, 50, 0.25);
     --button_hover_border: rgba(0, 0, 0, 0);
+    --button_white_normal: rgba(0, 0, 0, 0);
+    --button_white_normal_border: rgba(255, 255, 255, 0.3);
+    --button_white_hover: rgba(0, 0, 0, 0.25);
+    --button_white_hover_border: rgba(255, 255, 255, 0.5);
 
     --select_normal: rgba(0, 0, 0, 0.25);
     --select_normal_border: rgba(0, 0, 0, 0);
@@ -71,6 +78,8 @@
 
     --input_normal: rgba(0, 0, 0, 0);
     --input_normal_border: rgba(0, 0, 0, 0.5);
+    --input_white_normal: rgba(0, 0, 0, 0);
+    --input_white_normal_border: rgba(255, 255, 255, 0.3);
 
     --li_normal: rgba(0, 0, 0, 0);
     --li_hover: rgba(0, 0, 0, 0.1);

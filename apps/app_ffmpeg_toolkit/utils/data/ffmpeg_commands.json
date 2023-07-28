@@ -1,0 +1,90 @@
+[
+    {
+        "en_name": "Video Compress",
+        "zh_name": "视频压缩",
+        "input_ext": "mp4&avi",
+        "line": "ffmpeg -i {input} -vcodec libx264 -crf {compress_rate} {output}.{ext}",
+        "parameters": {
+            "compress_rate": {
+                "en_name": "Compress Rate",
+                "zh_name": "压缩率",
+                "describe": "Compress Rate",
+                "type": "int",
+                "range": [0, 51],
+                "default": 51
+            },
+            "ext": {
+                "en_name": "Ext",
+                "zh_name": "后缀名",
+                "describe": "Ext",
+                "type": "str",
+                "range": ["mp4", "avi"],
+                "default": "mp4"
+            }
+        }
+    },
+    {
+        "en_name": "Media Convert",
+        "zh_name": "格式转换",
+        "input_ext": "mp3&wav&mp4&avi",
+        "line": "ffmpeg -i {input} {output}.{ext}",
+        "parameters": {
+            "ext": {
+                "en_name": "Ext",
+                "zh_name": "后缀名",
+                "describe": "Ext",
+                "type": "str",
+                "range": ["mp3", "wav", "mp4", "avi"],
+                "default": "mp4"
+            }
+        }
+    },
+    {
+        "en_name": "Audio Compress",
+        "zh_name": "音频压缩",
+        "input_ext": "mp3&wav",
+        "line": "ffmpeg -i {input} -ar {sampling_rate} -b:a {bitrate}k -filter:a atempo={speed_rate},volume={volume_rate} {output}.{ext}",
+        "parameters": {
+            "sampling_rate": {
+                "en_name": "Sampling Rate",
+                "zh_name": "采样率",
+                "describe": "Sampling Rate",
+                "type": "int",
+                "range": [8000, 192000],
+                "default": 51
+            },
+            "bitrate": {
+                "en_name": "Bitrate",
+                "zh_name": "比特率",
+                "describe": "Bitrate",
+                "type": "int",
+                "range": [128, 8000],
+                "default": "mp4"
+            },
+            "speed_rate": {
+                "en_name": "Speed Rate",
+                "zh_name": "速度",
+                "describe": "Speed Rate",
+                "type": "float",
+                "range": [0.1, 10.0],
+                "default": 1.0
+            },
+            "volume_rate": {
+                "en_name": "Volume Rate",
+                "zh_name": "音量",
+                "describe": "Volume Rate",
+                "type": "float",
+                "range": [0.0, 10.0],
+                "default": 1.0
+            },
+            "ext": {
+                "en_name": "Ext",
+                "zh_name": "后缀名",
+                "describe": "Ext",
+                "type": "str",
+                "range": ["mp3", "wav"],
+                "default": "mp3"
+            }
+        }
+    }
+]

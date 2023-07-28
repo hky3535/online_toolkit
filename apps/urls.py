@@ -3,17 +3,20 @@
 """
 from django.contrib import admin
 from django.urls import path
+
 from .app_root.main import Main as RootMain
 from .app_draw_frame.main import Main as DrawFrameMain
 from .app_limited_time_sharing.main import Main as LimitedTimeSharingMain
 from .app_media_scrape.main import Main as MediaScrapeMain
 from .app_word_cloud.main import Main as WordCloudMain
+from .app_ffmpeg_toolkit.main import Main as FFmpegToolkitMain
 
 root_main = RootMain()
 draw_frame_main = DrawFrameMain()
 limited_time_sharing_main = LimitedTimeSharingMain()
 media_scrape_main = MediaScrapeMain()
 word_cloud_main = WordCloudMain()
+ffmpeg_toolkit_main = FFmpegToolkitMain()
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -51,6 +54,9 @@ urlpatterns = [
         path('word_cloud/generate/', word_cloud_main.generate),
         path('word_cloud/refresh_frame/', word_cloud_main.refresh_frame),
         path('word_cloud/prepare_download_file/', word_cloud_main.prepare_download_file),
-        path('word_cloud/download_file/', word_cloud_main.download_file)
+        path('word_cloud/download_file/', word_cloud_main.download_file),
 
+    # app_ffmpeg_toolkit
+    path('ffmpeg_toolkit/', ffmpeg_toolkit_main.index),
+        path('ffmpeg_toolkit/refresh_commands/', ffmpeg_toolkit_main.refresh_commands)
 ]

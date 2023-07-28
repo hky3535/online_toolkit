@@ -64,7 +64,8 @@ TEMPLATES = [
             BASE_DIR / 'apps/app_draw_frame/templates',  
             BASE_DIR / 'apps/app_limited_time_sharing/templates',
             BASE_DIR / 'apps/app_media_scrape/templates',
-            BASE_DIR / 'apps/app_word_cloud/templates'
+            BASE_DIR / 'apps/app_word_cloud/templates',
+            BASE_DIR / 'apps/app_ffmpeg_toolkit/templates'
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -132,7 +133,8 @@ STATICFILES_DIRS = [
     BASE_DIR / 'apps/app_draw_frame/static',
     BASE_DIR / 'apps/app_limited_time_sharing/static',
     BASE_DIR / 'apps/app_media_scrape/static',
-    BASE_DIR / 'apps/app_word_cloud/static'
+    BASE_DIR / 'apps/app_word_cloud/static',
+    BASE_DIR / 'apps/app_ffmpeg_toolkit/static'
 ]
 
 

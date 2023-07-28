@@ -6,7 +6,6 @@ from django.http import JsonResponse
 from django.http import FileResponse
 import json
 from .utils import basic
-import time
 
 
 class Main:

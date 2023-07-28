@@ -1,0 +1,30 @@
+<!-- 何恺悦 hekaiyue 2023-07-28 -->
+<!DOCTYPE html>
+{% load static %}
+<html>
+
+    <head>
+        <title>媒体处理</title>
+        <meta charset="utf-8">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/root_styles.css' %}">
+        <link rel="stylesheet" href="{% static 'css/ffmpeg_toolkit_index.css' %}">
+    </head>
+
+    <body>
+        <div id="main_div">
+
+            <div id="commands_div">
+
+            </div>
+
+            <!-- 全局状态弹窗 -->
+            <div id="status_popup_div">
+                <label id="status_popup_label">helloworld!</label>
+            </div>
+
+        </div>
+
+    </body>
+    <script src="{% static 'js/ffmpeg_toolkit_index.js' %}"></script>
+</html>
