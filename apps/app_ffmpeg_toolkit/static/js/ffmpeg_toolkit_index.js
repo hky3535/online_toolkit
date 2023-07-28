@@ -1,10 +1,26 @@
 /**何恺悦 hekaiyue 2023-07-28 */
 
 const main_div = document.getElementById('main_div');
-/**指令列表 */
 const commands_div = document.getElementById('commands_div');
 const tip_div = document.getElementById('tip_div');
+var commands = [];
 
+const status_popup_div = document.getElementById('status_popup_div');
+const status_popup_label = document.getElementById('status_popup_label');
+
+function status_popup(seconds, text) {
+    status_popup_label.textContent = text;
+    status_popup_div.style.display = 'flex';
+    main_div.style.pointerEvents = 'none';
+    setTimeout(() => {  // 几秒后关闭悬浮窗 复原主屏幕
+        /**
+         * 解除全局事件禁用
+         * 隐藏状态弹窗
+         */
+        main_div.style.pointerEvents = 'auto';
+        status_popup_div.style.display = 'none';
+    }, seconds*1000);
+}
 
 function refresh_commands() {
     fetch('/ffmpeg_toolkit/refresh_commands/', {
@@ -12,6 +28,7 @@ function refresh_commands() {
     })
     .then(response => response.json())
     .then(data => {
+        commands = data["commands"];
         data["commands"].forEach(item => {
             add_command(item);
         });
@@ -52,6 +69,13 @@ function add_command(item) {
     line_div.appendChild(line);
 
     let line_inner = item["line"];
+    /**创建一个选择文件的操作 */
+    let select = document.createElement('input');
+    select.id = item["en_name"] + "&select";
+    select.type = 'file';
+    select.style.display = 'none';
+    select.accept = item["input_suffix_name"].split('&').map(type => `.${type}`).join(',');
+    command_div.appendChild(select);
     /**创建上传按钮 */
     let input_button = document.createElement('button');
     input_button.id = item["en_name"] + "&input";
@@ -81,8 +105,8 @@ function add_command(item) {
 
     /**绑定各元素触发 */
     line.innerHTML = line_inner;
-    document.getElementById(input_button.id).addEventListener('click', upload.bind(null, item["en_name"]));
-    document.getElementById(output_button.id).addEventListener('click', download.bind(null, item["en_name"]));
+    document.getElementById(input_button.id).addEventListener('click', upload.bind(null, item));
+    document.getElementById(output_button.id).addEventListener('click', download.bind(null, item));
     if (params) {
         for (var i = 0; i < params.length; i++) {
             let param = params[i];
@@ -96,11 +120,26 @@ function add_command(item) {
     }
 }
 
-function upload(en_name) {
-    console.info("upload" + en_name);
+function upload(item) {
+    /**链接点击事件 */
+    document.getElementById(item["en_name"] + "&select").click();
 }
-function download(en_name) {
-    console.info("download " + en_name);
+function download(item) {
+    /**获取上传的文件 */
+    let select = document.getElementById(item["en_name"] + "&select");
+    if (select.files.length === 0) {
+        status_popup(0.5, "未选择文件");
+        // return;
+    }
+    let file = select.files[0];
+
+    
+
+    /**检查参数是否正确 */
+    check_param_input(item);
+
+
+
 }
 function tip_param_input(show, param_input, property) {
     if (show) {
@@ -122,8 +161,37 @@ function tip_param_input(show, param_input, property) {
         tip_div.style.display = 'none';
     }
 }
-function check_param_input(en_name) {
+function check_param_input(item) {
+    for (const param in item["params"]) {
+        console.info(param)
+        let param_input = document.getElementById(item["en_name"] + "&" + param);
+        let param_type = item["params"][param]["type"];
+        let param_range = item["params"][param]["range"];
+        let param_default = item["params"][param]["default"];
 
+        console.info(check_range(param_input.value, param_type, param_range, param_default));
+    }
+
+    function check_range(param_input_value, param_type, param_range, param_default) {
+        if (param_type === "int") {
+            let lower = param_range[0];
+            let upper = param_range[1];
+            if (param_input_value === '') {return param_default;}
+            if (parseInt(param_input_value) > upper) {return upper;}
+            if (parseInt(param_input_value) < lower) {return lower;}
+        } else if (param_type === "float") {
+            let lower = param_range[0];
+            let upper = param_range[1];
+            if (param_input_value === '') {return param_default;}
+            if (parseFloat(param_input_value) > upper) {return upper;}
+            if (parseFloat(param_input_value) < lower) {return lower;}
+        } else if (param_type === "str") {
+            if (!param_range.includes(param_input_value)) {return param_default}
+        } else {
+
+        }
+        return param_input_value;
+    }
 }
 
 
