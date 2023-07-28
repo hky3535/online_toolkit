@@ -2,3 +2,4 @@ python3.10
 python3-pip
 libglib2.0-dev
 libgl1-mesa-glx
+ffmpeg
