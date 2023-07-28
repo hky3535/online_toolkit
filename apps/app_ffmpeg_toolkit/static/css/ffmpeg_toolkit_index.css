@@ -75,6 +75,22 @@ body {
     font-weight: bold;
 }
 
+#tip_div {
+    background-color: var(--div_tertiary);
+    border-radius: 20px;
+    padding: 10px;
+    flex-direction: column;
+    position: absolute;
+    z-index: 9999;
+    display: none;
+    box-sizing: border-box;
+}
+.tip_label {
+    color: var(--text_white_small);
+    font-size: 20px;
+    font-weight: bold;
+}
+
 
 
 
@@ -119,8 +135,9 @@ body {
 
 /* 全局元素 */
 input {
-    width: 100px;
+    width: 125px;
     height: 35px;
+    color: var(--text_white_small);
     background-color: var(--input_white_normal);
     border: 1px solid var(--input_white_normal_border);
     border-radius: 6px;
@@ -152,6 +169,7 @@ h1 {
 }
 
 button {
+    width: 125px;
     font-size: 26px;
     background-color: var(--button_white_normal);
     border-radius: 6px;

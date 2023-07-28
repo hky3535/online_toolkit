@@ -2,9 +2,9 @@
     {
         "en_name": "Video Compress",
         "zh_name": "视频压缩",
-        "input_ext": "mp4&avi",
-        "line": "ffmpeg -i {input} -vcodec libx264 -crf {compress_rate} {output}.{ext}",
-        "parameters": {
+        "input_suffix_name": "mp4&avi",
+        "line": "ffmpeg -i {input} -vcodec libx264 -crf {compress_rate} {output}.{suffix_name}",
+        "params": {
             "compress_rate": {
                 "en_name": "Compress Rate",
                 "zh_name": "压缩率",
@@ -13,10 +13,10 @@
                 "range": [0, 51],
                 "default": 51
             },
-            "ext": {
-                "en_name": "Ext",
+            "suffix_name": {
+                "en_name": "Suffix Name",
                 "zh_name": "后缀名",
-                "describe": "Ext",
+                "describe": "Suffix Name",
                 "type": "str",
                 "range": ["mp4", "avi"],
                 "default": "mp4"
@@ -26,13 +26,13 @@
     {
         "en_name": "Media Convert",
         "zh_name": "格式转换",
-        "input_ext": "mp3&wav&mp4&avi",
-        "line": "ffmpeg -i {input} {output}.{ext}",
-        "parameters": {
-            "ext": {
-                "en_name": "Ext",
+        "input_suffix_name": "mp3&wav&mp4&avi",
+        "line": "ffmpeg -i {input} {output}.{suffix_name}",
+        "params": {
+            "suffix_name": {
+                "en_name": "Suffix Name",
                 "zh_name": "后缀名",
-                "describe": "Ext",
+                "describe": "Suffix Name",
                 "type": "str",
                 "range": ["mp3", "wav", "mp4", "avi"],
                 "default": "mp4"
@@ -42,9 +42,9 @@
     {
         "en_name": "Audio Compress",
         "zh_name": "音频压缩",
-        "input_ext": "mp3&wav",
-        "line": "ffmpeg -i {input} -ar {sampling_rate} -b:a {bitrate}k -filter:a atempo={speed_rate},volume={volume_rate} {output}.{ext}",
-        "parameters": {
+        "input_suffix_name": "mp3&wav",
+        "line": "ffmpeg -i {input} -ar {sampling_rate} -b:a {bitrate}k -filter:a atempo={speed_rate},volume={volume_rate} {output}.{suffix_name}",
+        "params": {
             "sampling_rate": {
                 "en_name": "Sampling Rate",
                 "zh_name": "采样率",
@@ -77,10 +77,10 @@
                 "range": [0.0, 10.0],
                 "default": 1.0
             },
-            "ext": {
-                "en_name": "Ext",
+            "suffix_name": {
+                "en_name": "Suffix_Name",
                 "zh_name": "后缀名",
-                "describe": "Ext",
+                "describe": "Suffix_Name",
                 "type": "str",
                 "range": ["mp3", "wav"],
                 "default": "mp3"

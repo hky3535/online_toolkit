@@ -3,12 +3,7 @@
 const main_div = document.getElementById('main_div');
 /**指令列表 */
 const commands_div = document.getElementById('commands_div');
-
-
-
-
-
-var commands = [];
+const tip_div = document.getElementById('tip_div');
 
 
 function refresh_commands() {
@@ -67,41 +62,76 @@ function add_command(item) {
     output_button.id = item["en_name"] + "&output";
     output_button.innerHTML = 'download';
     line_inner = line_inner.replace('{output}', output_button.outerHTML);
-    line.innerHTML = line_inner;    /**绑定触发 */
-    document.getElementById(input_button.id).addEventListener('click', upload.bind(null, item["en_name"]));
-    document.getElementById(output_button.id).addEventListener('click', download.bind(null, item["en_name"]));
     
     /**创建参数输入 */
-    let parameters = line.innerHTML.match(/{(.+?)}/g);
-    if (parameters) {
-        for (var i = 0; i < parameters.length; i++) {
-            parameter = parameters[i];
-            let parameter_name = parameter.slice(1, -1);
-            let parameter_input = document.createElement('input'); parameter_input.type = 'text';
-            
+    let params = line_inner.match(/{(.+?)}/g);
+    if (params) {
+        for (var i = 0; i < params.length; i++) {
+            let param = params[i];
+            let param_name = param.slice(1, -1);
+            let property = item["params"][param_name];
 
-
-
-            line_inner = line_inner.replace(parameter, parameter_input.outerHTML);
-            line.innerHTML = line_inner;
+            let param_input = document.createElement('input');
+            param_input.type = 'text';
+            param_input.id = item["en_name"] + "&" + param_name;
+            param_input.placeholder = property["en_name"];
+            line_inner = line_inner.replace(param, param_input.outerHTML);
         }
     }
 
-
-
-
-    
+    /**绑定各元素触发 */
+    line.innerHTML = line_inner;
+    document.getElementById(input_button.id).addEventListener('click', upload.bind(null, item["en_name"]));
+    document.getElementById(output_button.id).addEventListener('click', download.bind(null, item["en_name"]));
+    if (params) {
+        for (var i = 0; i < params.length; i++) {
+            let param = params[i];
+            let param_name = param.slice(1, -1);
+            let property = item["params"][param_name];
+            let param_input_id = item["en_name"] + "&" + param_name;
+            let param_input = document.getElementById(param_input_id);
+            param_input.addEventListener('mouseenter', tip_param_input.bind(null, true, param_input, property));
+            param_input.addEventListener('mouseleave', tip_param_input.bind(null, false, param_input, property));
+        }
+    }
 }
 
 function upload(en_name) {
-    console.info("upload " + en_name);
+    console.info("upload" + en_name);
 }
 function download(en_name) {
     console.info("download " + en_name);
 }
-function parameter (en_name, key, value) {
-    console.info(en_name + " " + key + " " + value);
+function tip_param_input(show, param_input, property) {
+    if (show) {
+        tip_div.innerHTML = 
+            `<label class='tip_label'>英文名称：${property["en_name"]}</label>` +
+            `<label class='tip_label'>中文名称：${property["zh_name"]}</label>` +
+            `<label class='tip_label'>描述：${property["describe"]}</label>` +
+            `<label class='tip_label'>类型：${property["type"]}</label>` +
+            `<label class='tip_label'>范围：${property["range"]}</label>` +
+            `<label class='tip_label'>默认值：${property["default"]}</label>`
+        ;
+
+        param_position = param_input.getBoundingClientRect();
+        tip_div.style.top = param_position.bottom + 'px';
+        tip_div.style.left = param_position.left + 'px';
+
+        tip_div.style.display = 'flex';
+    } else {
+        tip_div.style.display = 'none';
+    }
 }
+function check_param_input(en_name) {
+
+}
+
+
+
+
+
+
+
 
 refresh_commands();
 
