@@ -3,10 +3,12 @@
 const main_div = document.getElementById('main_div');
 const commands_div = document.getElementById('commands_div');
 const tip_div = document.getElementById('tip_div');
-var commands = [];
+const tip_file_name_div = document.getElementById('tip_file_name_div');
 
 const status_popup_div = document.getElementById('status_popup_div');
 const status_popup_label = document.getElementById('status_popup_label');
+
+const identification_code = Math.floor(Math.random() * 9000000) + 1000000;
 
 function status_popup(seconds, text) {
     status_popup_label.textContent = text;
@@ -28,7 +30,6 @@ function refresh_commands() {
     })
     .then(response => response.json())
     .then(data => {
-        commands = data["commands"];
         data["commands"].forEach(item => {
             add_command(item);
         });
@@ -121,28 +122,73 @@ function add_command(item) {
 }
 
 function upload(item) {
-    /**链接点击事件 */
-    document.getElementById(item["en_name"] + "&select").click();
+    let input_button = document.getElementById(item["en_name"] + "&input");
+    let select = document.getElementById(item["en_name"] + "&select");
+    /**上传按钮绑定 */
+    select.addEventListener('change', (event)=> {
+        let file_name = event.target.files[0].name;
+        /**绑定鼠标悬停显示文件名 */
+        input_button.addEventListener('mouseenter', tip_file_name.bind(null, true, input_button, file_name));
+        input_button.addEventListener('mouseleave', tip_file_name.bind(null, false, input_button, file_name));
+
+        input_button.textContent = "uploaded";
+        status_popup(0.5, "已选择文件！");
+    });
+    select.click();
 }
 function download(item) {
+    /**上传文件+参数的混合结果FormData() */
+    let upload_form = new FormData();
+
     /**获取上传的文件 */
     let select = document.getElementById(item["en_name"] + "&select");
     if (select.files.length === 0) {
-        status_popup(0.5, "未选择文件");
-        // return;
+        status_popup(0.5, "未选择文件！");
+        return;
     }
     let file = select.files[0];
+    upload_form.append(file.name, file);
 
-    
+    /**确认身份信息 */
+    upload_form.append("identification_code", identification_code);
+
+    /**确认使用指令名称 */
+    upload_form.append("en_name", item["en_name"]);
 
     /**检查参数是否正确 */
-    check_param_input(item);
+    let valid_params = check_param_input(item);
+    upload_form.append("params", JSON.stringify(valid_params));
 
+    fetch('/ffmpeg_toolkit/apply/', {
+        method: 'POST',
+        body: upload_form
+    })
+    .then(response => response.json())
+    .then(data => {
+        
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+function tip_file_name(show, input_button, file_name) {
+    if (show) {
+        tip_file_name_div.innerHTML = 
+            `<label class='tip_file_name_label'>${file_name}</label>`
+        ;
+        /**根据框的位置显示tip栏 */
+        input_position = input_button.getBoundingClientRect();
+        tip_file_name_div.style.top = input_position.bottom + 'px';
+        tip_file_name_div.style.left = input_position.left + 'px';
 
-
+        tip_file_name_div.style.display = 'flex';
+    } else {
+        tip_file_name_div.style.display = 'none';
+    }
 }
 function tip_param_input(show, param_input, property) {
     if (show) {
+        /**编辑出tip栏内需要显示的内容 */
         tip_div.innerHTML = 
             `<label class='tip_label'>英文名称：${property["en_name"]}</label>` +
             `<label class='tip_label'>中文名称：${property["zh_name"]}</label>` +
@@ -152,6 +198,7 @@ function tip_param_input(show, param_input, property) {
             `<label class='tip_label'>默认值：${property["default"]}</label>`
         ;
 
+        /**根据框的位置显示tip栏 */
         param_position = param_input.getBoundingClientRect();
         tip_div.style.top = param_position.bottom + 'px';
         tip_div.style.left = param_position.left + 'px';
@@ -162,15 +209,19 @@ function tip_param_input(show, param_input, property) {
     }
 }
 function check_param_input(item) {
+    let valid_params = {};
     for (const param in item["params"]) {
-        console.info(param)
         let param_input = document.getElementById(item["en_name"] + "&" + param);
         let param_type = item["params"][param]["type"];
         let param_range = item["params"][param]["range"];
         let param_default = item["params"][param]["default"];
-
-        console.info(check_range(param_input.value, param_type, param_range, param_default));
+        
+        /**根据配置内容检查填写内容是否正确 */
+        let param_value = check_range(param_input.value, param_type, param_range, param_default);
+        param_input.value = param_value;
+        valid_params[param] = param_value;
     }
+    return valid_params;
 
     function check_range(param_input_value, param_type, param_range, param_default) {
         if (param_type === "int") {

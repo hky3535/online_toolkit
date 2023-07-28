@@ -1,5 +1,22 @@
 [
     {
+        "en_name": "Media Convert",
+        "zh_name": "格式转换",
+        "input_suffix_name": "mp3&wav&mp4&avi",
+        "line": "ffmpeg -i {input} {output}.{suffix_name}",
+        "params": {
+            "suffix_name": {
+                "en_name": "Suffix Name",
+                "zh_name": "后缀名",
+                "describe": "Suffix Name",
+                "type": "str",
+                "range": ["mp3", "wav", "mp4", "avi"],
+                "default": "mp4"
+            }
+        }
+    },
+
+    {
         "en_name": "Video Compress",
         "zh_name": "视频压缩",
         "input_suffix_name": "mp4&avi",
@@ -23,22 +40,7 @@
             }
         }
     },
-    {
-        "en_name": "Media Convert",
-        "zh_name": "格式转换",
-        "input_suffix_name": "mp3&wav&mp4&avi",
-        "line": "ffmpeg -i {input} {output}.{suffix_name}",
-        "params": {
-            "suffix_name": {
-                "en_name": "Suffix Name",
-                "zh_name": "后缀名",
-                "describe": "Suffix Name",
-                "type": "str",
-                "range": ["mp3", "wav", "mp4", "avi"],
-                "default": "mp4"
-            }
-        }
-    },
+    
     {
         "en_name": "Audio Compress",
         "zh_name": "音频压缩",
@@ -78,12 +80,45 @@
                 "default": 1.0
             },
             "suffix_name": {
-                "en_name": "Suffix_Name",
+                "en_name": "Suffix Name",
                 "zh_name": "后缀名",
-                "describe": "Suffix_Name",
+                "describe": "Suffix Name",
                 "type": "str",
                 "range": ["mp3", "wav"],
                 "default": "mp3"
+            }
+        }
+    },
+
+    {
+        "en_name": "Media Cut",
+        "zh_name": "媒体剪切",
+        "input_suffix_name": "mp3&wav&mp4&avi",
+        "line": "ffmpeg -i {input} -ss {start_time} -t \"{duration}\" -c copy {output}.{suffix_name}",
+        "params": {
+            "start_time": {
+                "en_name": "Start Time",
+                "zh_name": "起始时间",
+                "describe": "Start Time",
+                "type": "float",
+                "range": [0, 999999],
+                "default": "0"
+            },
+            "duration": {
+                "en_name": "Duration",
+                "zh_name": "时长",
+                "describe": "Duration",
+                "type": "float",
+                "range": [0, 999999],
+                "default": "10"
+            },
+            "suffix_name": {
+                "en_name": "Suffix Name",
+                "zh_name": "后缀名",
+                "describe": "Suffix Name",
+                "type": "str",
+                "range": ["mp3", "wav", "mp4", "avi"],
+                "default": "mp4"
             }
         }
     }

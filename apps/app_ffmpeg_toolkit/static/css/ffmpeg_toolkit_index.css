@@ -78,7 +78,7 @@ body {
 #tip_div {
     background-color: var(--div_tertiary);
     border-radius: 20px;
-    padding: 10px;
+    padding: 20px;
     flex-direction: column;
     position: absolute;
     z-index: 9999;
@@ -90,7 +90,22 @@ body {
     font-size: 20px;
     font-weight: bold;
 }
-
+#tip_file_name_div {
+    width: 500px;
+    background-color: var(--div_tertiary);
+    border-radius: 20px;
+    padding: 20px;
+    flex-direction: column;
+    position: absolute;
+    z-index: 9999;
+    display: none;
+    box-sizing: border-box;
+}
+.tip_file_name_label {
+    color: var(--text_white_small);
+    font-size: 20px;
+    font-weight: bold;
+}
 
 
 
@@ -135,20 +150,19 @@ body {
 
 /* 全局元素 */
 input {
-    width: 125px;
-    height: 35px;
+    width: 130px; height: 35px;
     color: var(--text_white_small);
     background-color: var(--input_white_normal);
     border: 1px solid var(--input_white_normal_border);
     border-radius: 6px;
-    font-size: 16px;
+    font-size: 26px;
     box-sizing: border-box;
+    align-items: center;
     vertical-align: middle;
 }
 input::placeholder {
     font-size: 16px;
     font-weight: bold;
-    vertical-align: middle;
 }
 ul {
     width: 100%;
@@ -174,7 +188,7 @@ h1 {
 }
 
 button {
-    width: 125px;
+    width: 130px; height: 35px;
     font-size: 26px;
     background-color: var(--button_white_normal);
     border-radius: 6px;
