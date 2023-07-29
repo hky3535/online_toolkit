@@ -14,6 +14,11 @@ django+html+css+js
 git clone https://github.com/hky3535/online_toolkit.git && cd online_toolkit && docker build -t online_toolkit:latest . && docker run -itd --name online_toolkit -p 60000:30000 --restart always --privileged online_toolkit:latest
 ```
 * 可以使用docker logs online_toolkit查看初始化进度，等待所有初始化库安装完成即可开始运行
+### 设置bilibili爬虫的cookie
+```bash
+BILIBILI_SESSDATA=      # 填入你的cookie里的SESSDATA
+docker exec online_toolkit sed -i "s/\('SESSDATA': '\)[^']*\(.*\)/\1$BILIBILI_SESSDATA\2/" /workspace/online_toolkit/apps/app_media_scrape/utils/bilibili.py
+```
 ### 分解部署
 ```bash
 git clone https://github.com/hky3535/online_toolkit.git
