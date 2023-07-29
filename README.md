@@ -22,7 +22,7 @@ docker build -t online_toolkit:latest .
 docker run -itd --name online_toolkit -p 60000:30000 --restart always --privileged online_toolkit:latest
 ```
 * 可以使用docker logs online_toolkit查看初始化进度，等待所有初始化库安装完成即可开始运行
-### 访问https://0.0.0.0:12345进入网站
+### 访问https://0.0.0.0:60000进入网站
 
 ## 功能详细介绍
 ### 绘制图像
