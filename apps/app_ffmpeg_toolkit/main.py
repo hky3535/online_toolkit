@@ -27,5 +27,19 @@ class Main:
         file_name = list(file.keys())[0]
         file_chunks = file.get(file_name).chunks()
 
-        download_name = self.basic.apply(identification_code, en_name, params, file_name, file_chunks)
-        return JsonResponse({})
+        file_dir, file_name = self.basic.apply(identification_code, en_name, params, file_name, file_chunks)
+        return JsonResponse({"file_dir": file_dir, "file_name": file_name})
+
+    def apply_progress(self, request):
+
+        exec_output = self.basic.exec_output
+        return JsonResponse({"exec_output": exec_output})
+
+    def download_file(self, request):
+        file_dir = request.GET.get('file_dir')
+        file_name = request.GET.get('file_name')
+        
+        file = open(f"{file_dir}", 'rb')
+        response = FileResponse(file)
+        response['Content-Disposition'] = f'attachment; filename="{file_name}"'
+        return response 

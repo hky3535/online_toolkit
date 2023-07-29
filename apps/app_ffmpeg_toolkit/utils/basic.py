@@ -11,6 +11,7 @@ class Basic:
         self.storage_dir = f"{self.base_dir}/storage"
         self.generate_dir(self.storage_dir)
         self.commands = self.refresh_commands()
+        self.exec_output = "上传中..."
         
     def generate_dir(self, dir):
         if not os.path.exists(dir):
@@ -24,6 +25,7 @@ class Basic:
         return ffmpeg_commands_json
 
     def apply(self, identification_code, en_name, params, file_name, file_chunks):
+        self.exec_output = "上传中..."
         self.apply_dir = f"{self.storage_dir}/{str(identification_code)}"
         self.generate_dir(self.apply_dir)
         # 保存文件到本地
@@ -44,15 +46,17 @@ class Basic:
         
         # 运行指令（实时输出指令执行内容）
         exec_line = line.format(**params)
-        print(exec_line)
-        process = subprocess.Popen(exec_line, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        process = subprocess.Popen(exec_line, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, bufsize=1, universal_newlines=True)
 
-        while True:
-            output = process.stdout.readline()
-            if output == b'' and process.poll() is not None:
-                break
-            if output:
-                print(output.strip().decode('utf-8'))
-
-        rc = process.poll()
+        # 运行命令，并将输出添加到字符串变量中
+        for exec_output in process.stdout:
+            self.exec_output += exec_output
         
+        return self.find_file(params["output"])
+        
+    def find_file(self, raw_file_dir):
+        raw_file_name = os.path.basename(raw_file_dir)
+        for dir_path, dir_names, file_names in os.walk(os.path.dirname(raw_file_dir)):
+            for file_name in file_names:
+                if file_name.startswith(raw_file_name):
+                    return os.path.abspath(os.path.join(dir_path, file_name)), file_name

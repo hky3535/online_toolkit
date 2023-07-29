@@ -5,6 +5,9 @@ const commands_div = document.getElementById('commands_div');
 const tip_div = document.getElementById('tip_div');
 const tip_file_name_div = document.getElementById('tip_file_name_div');
 
+const apply_progress_div = document.getElementById('apply_progress_div');
+const apply_progress_textarea = document.getElementById('apply_progress_textarea');
+
 const status_popup_div = document.getElementById('status_popup_div');
 const status_popup_label = document.getElementById('status_popup_label');
 
@@ -139,7 +142,6 @@ function upload(item) {
 function download(item) {
     /**上传文件+参数的混合结果FormData() */
     let upload_form = new FormData();
-
     /**获取上传的文件 */
     let select = document.getElementById(item["en_name"] + "&select");
     if (select.files.length === 0) {
@@ -148,28 +150,70 @@ function download(item) {
     }
     let file = select.files[0];
     upload_form.append(file.name, file);
-
     /**确认身份信息 */
     upload_form.append("identification_code", identification_code);
-
     /**确认使用指令名称 */
     upload_form.append("en_name", item["en_name"]);
-
     /**检查参数是否正确 */
     let valid_params = check_param_input(item);
     upload_form.append("params", JSON.stringify(valid_params));
 
+    /**呼出执行窗口 */
+    apply_progress_textarea.value = "上传中...";
+    apply_progress_div.style.display = 'flex';
+    main_div.style.pointerEvents = 'none';
+    apply_progress_textarea.style.pointerEvents = 'auto';
+
+    /**发送指令执行请求 */
+    let done_flag = false;
     fetch('/ffmpeg_toolkit/apply/', {
         method: 'POST',
         body: upload_form
     })
     .then(response => response.json())
     .then(data => {
-        
+        /**执行完成接到结果 */
+        done_flag = true;
+
+        /**下载结果 */
+        let file_dir = data["file_dir"];
+        let file_name = data["file_name"];
+        apply_progress_textarea.value = file_name;
+        let link = document.createElement('a'); 
+        link.href = `/ffmpeg_toolkit/download_file/?file_dir=${file_dir}&file_name=${file_name}`; 
+        link.download = file_name; 
+        link.click();
+
+        /**关闭执行窗口 */
+        setTimeout(() => {
+            main_div.style.pointerEvents = 'auto';
+            apply_progress_div.style.display = 'none';
+        }, 1500);
     })
     .catch(error => {
         console.error('Error:', error);
     });
+
+    apply_progress();
+    function apply_progress() {
+        if (done_flag) {return;}
+        /**异步查看指令执行进度 */
+        fetch('/ffmpeg_toolkit/apply_progress/', {
+            method: 'GET'
+        })
+        .then(response => response.json())
+        .then(data => {
+            apply_progress_textarea.value = data["exec_output"];
+            apply_progress_textarea.scrollTop = apply_progress_textarea.scrollHeight;
+            setTimeout(() => {
+                apply_progress();
+            }, 500);
+        })
+        .catch(error => {
+            console.error(error);
+        });
+    }
+    
 }
 function tip_file_name(show, input_button, file_name) {
     if (show) {

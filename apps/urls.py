@@ -59,5 +59,7 @@ urlpatterns = [
     # app_ffmpeg_toolkit
     path('ffmpeg_toolkit/', ffmpeg_toolkit_main.index),
         path('ffmpeg_toolkit/refresh_commands/', ffmpeg_toolkit_main.refresh_commands),
-        path('ffmpeg_toolkit/apply/', ffmpeg_toolkit_main.apply)
+        path('ffmpeg_toolkit/apply/', ffmpeg_toolkit_main.apply),
+        path('ffmpeg_toolkit/apply_progress/', ffmpeg_toolkit_main.apply_progress),
+        path('ffmpeg_toolkit/download_file/', ffmpeg_toolkit_main.download_file)
 ]
