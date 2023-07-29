@@ -6,6 +6,7 @@ django+html+css+js
 * 限时分享
 * 媒体抓取
 * 词云生成
+* 媒体处理（ffmpeg在线操作）
 
 ## docker使用方式
 ### 一键部署
@@ -48,3 +49,8 @@ docker run -itd --name online_toolkit -p 60000:30000 --restart always --privileg
 
 ### 词云生成
 * 根据配置结果生成所需词云
+
+### 媒体处理
+* 在本地配置文件中可以自行添加ffmpeg语句
+* 本地配置文件路径：apps/app_ffmpeg_toolkit/utils/data/ffmpeg_commands.json
+* 语句中保留字段为{input}和{output}，分别会被解析为“上传”按钮和“应用及下载”按钮
