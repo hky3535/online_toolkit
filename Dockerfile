@@ -1,6 +1,6 @@
 FROM ubuntu:latest
 
-COPY . /workspace/container_desktop
+COPY . /workspace/online_toolkit
 
-WORKDIR /workspace/container_desktop
+WORKDIR /workspace/online_toolkit
 CMD ["sh", "run.sh"]
