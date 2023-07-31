@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+from . import templates_dirs, static_dirs
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -59,14 +60,7 @@ ROOT_URLCONF = 'apps.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-            BASE_DIR / 'apps/app_root/templates',
-            BASE_DIR / 'apps/app_draw_frame/templates',  
-            BASE_DIR / 'apps/app_limited_time_sharing/templates',
-            BASE_DIR / 'apps/app_media_scrape/templates',
-            BASE_DIR / 'apps/app_word_cloud/templates',
-            BASE_DIR / 'apps/app_ffmpeg_toolkit/templates'
-        ],
+        'DIRS': templates_dirs,
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -128,14 +122,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [
-    BASE_DIR / 'apps/app_root/static',
-    BASE_DIR / 'apps/app_draw_frame/static',
-    BASE_DIR / 'apps/app_limited_time_sharing/static',
-    BASE_DIR / 'apps/app_media_scrape/static',
-    BASE_DIR / 'apps/app_word_cloud/static',
-    BASE_DIR / 'apps/app_ffmpeg_toolkit/static'
-]
+STATICFILES_DIRS = static_dirs
 
 
 # Default primary key field type

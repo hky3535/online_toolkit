@@ -7,7 +7,7 @@
         <title>绘制图像</title>
         <meta charset="utf-8">
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="{% static 'css/root_styles.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/base_styles.css' %}">
         <link rel="stylesheet" href="{% static 'css/draw_frame_index.css' %}">
     </head>
 
@@ -90,10 +90,10 @@
 
             </div>
 
-            <!-- 子窗口 -->
-            <div id="popup_div">
+            <!-- 弹出操作窗口 -->
+            <div id="custom_popup_div">
                 <div id="create_folder_popup_div">
-                    <div class="popup_title">新建文件夹</div>
+                    <h2>新建文件夹</h2>
                     <input type="text" id="create_folder_input">
                     <div id="create_folder_popup_btn_div">
                         <button id="create_confirm">确定</button>
@@ -101,7 +101,7 @@
                     </div>
                 </div>
                 <div id="upload_file_popup_div">
-                    <div class="popup_title">上传文件</div>
+                    <h2>上传文件<h2>
                     <div id="select_file_div" >
                         <input type="file" id="select_file" multiple accept=".jpg,.png,.json" style="display: none;">
                         <button id="select_button">选择文件</button>
@@ -115,11 +115,11 @@
                     </div>
                 </div>
                 <div id="download_file_popup_div">
-                    <div class="popup_title">下载文件</div>
+                    <h2>下载文件<h2>
                     <div id="download_file_popup_checkbox_div">
-                        <label><input type="checkbox" id="origin_frame">初始图像</label>
-                        <label><input type="checkbox" id="drawn_frame">绘制图像</label>
-                        <label><input type="checkbox" id="drawings" checked>绘制数据</label>
+                        <label id="origin_frame_label"><input type="checkbox" id="origin_frame">初始图像</label>
+                        <label id="drawn_frame_label"><input type="checkbox" id="drawn_frame">绘制图像</label>
+                        <label id="drawings_label"><input type="checkbox" id="drawings" checked>绘制数据</label>
                     </div>
                     <div id="download_file_popup_btn_div">
                         <button id="download_confirm">下载</button>
@@ -127,6 +127,7 @@
                     </div>
                 </div>
             </div>
+
             <!-- 全局状态弹窗 -->
             <div id="status_popup_div">
                 <label id="status_popup_label">helloworld!</label>

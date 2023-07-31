@@ -1,30 +1,4 @@
 /* 何恺悦 hekaiyue 2023-07-28 */
-html {
-    width: 100%; height: 100%;
-}
-body {
-    width: 100%; height: 100%;
-    margin: 0px; padding: 10px;
-    background-color: var(--div_body);
-    user-select: none;  /* 全局屏蔽文本选中动作 */
-    box-sizing: border-box;
-}
-body {
-    background-image: var(--div_body_background);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-
-#main_div {
-    width: 100%; height: 100%;
-    background-color: var(--div_main);
-    border-radius: 30px;
-    padding: 20px;
-    display: flex;
-    flex-direction: row;
-    box-sizing: border-box;
-}
 
 #commands_div {
     width: 70%; height: 100%;
@@ -35,7 +9,7 @@ body {
 }
 .command_div {
     width: 100%; height: 150px;
-    background-color: var(--div_tertiary);
+    background-color: var(--div_secondary);
     margin-bottom: 20px;
     border-radius: 20px;
     padding: 10px;
@@ -53,27 +27,26 @@ body {
     box-sizing: border-box;
 }
 .zh_name {
-    color: var(--text_white_large);
+    color: var(--text_large);
     font-size: 40px;
-    font-weight: bold;
+    font-weight: 800;
 }
 .en_name {
-    color: var(--text_white_small);
+    color: var(--text_large);
     font-size: 15px;
-    font-weight: bold;
+    font-weight: 800;
 }
 .line_div {
     flex: 1;
     align-items: center;    /* 垂直居中 */
-    background-color: rgba(0, 0, 0, 0);
     padding: 20px;
     display: flex;
     box-sizing: border-box;
 }
 .line {
-    color: var(--text_white_small);
+    color: var(--text_middle);
     font-size: 25px;
-    font-weight: bold;
+    font-weight: 800;
 }
 
 #tip_div {
@@ -87,9 +60,9 @@ body {
     box-sizing: border-box;
 }
 .tip_label {
-    color: var(--text_white_small);
+    color: var(--text_small);
     font-size: 20px;
-    font-weight: bold;
+    font-weight: 800;
 }
 #tip_file_name_div {
     width: 500px;
@@ -98,14 +71,14 @@ body {
     padding: 20px;
     flex-direction: column;
     position: absolute;
-    z-index: 2000;
+    z-index: 9999;
     display: none;
     box-sizing: border-box;
 }
 .tip_file_name_label {
-    color: var(--text_white_small);
+    color: var(--text_small);
     font-size: 20px;
-    font-weight: bold;
+    font-weight: 800;
 }
 
 #apply_progress_div {
@@ -137,139 +110,15 @@ body {
     border-color: var(--textarea_focus_border);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* 全局状态弹窗 */
-#status_popup_div {
-    position: absolute;
-    background-color: var(--div_status);
-    display: none;
-    border-radius: 10px;
-    top: 50%; left: 50%; width: 260px; height: 80px; transform: translate(-50%, -50%);
-    justify-content: center; align-items: center;   /* x=0 ; y=0; */
-    z-index: 2002;
-}
-#status_popup_label {
-    color: var(--text_large);
-    font-size: 20px;
-    font-weight: bold;
-}
-
-/* 全局元素 */
 input {
-    width: 130px; height: 35px;
-    color: var(--text_white_small);
-    background-color: var(--input_white_normal);
-    border: 1px solid var(--input_white_normal_border);
-    border-radius: 6px;
+    width: 130px; height: 32px;
     font-size: 26px;
-    box-sizing: border-box;
-    align-items: center;
-    vertical-align: middle;
-}
-input::placeholder {
-    font-size: 16px;
-    font-weight: bold;
-}
-ul {
-    width: 100%;
-    margin: 0px; padding: 0px;
-    list-style-type: none; /* 移除列表项前面的黑点 */
-}
-li {
-    display: flex;
-    flex-grow: 1;
-}
-a {
-    width: 100%;
-    text-decoration: none; /* 移除链接的下划线 */
-    color: var(--text_small); /* 设置文字颜色 */
-}
-li:hover {   /* li标签的移入动画 */
-    background-color: var(--li_hover);
-    transition: background-color 0.2s ease;
-}
-
-h1 {
-    color: var(--text_large);
+    border-radius: 6px;
 }
 
 button {
     width: 130px; height: 35px;
-    font-size: 26px;
-    background-color: var(--button_white_normal);
+    font-size: 22px;
     border-radius: 6px;
-    border: 1px solid var(--button_white_normal_border);
-    color: var(--text_white_small);
-    text-decoration: none;
-    text-align: center;
-    vertical-align: middle;
-}
-button:hover {
-    background-color: var(--button_white_hover);
-    border: 1px solid var(--button_white_hover_border);
-}
-
-div::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-}
-div::-webkit-scrollbar-thumb {
-    background-color: var(--scrollbar_normal);
-    border-radius: 8px;
-}
-div::-webkit-scrollbar-thumb:hover {
-    background-color: var(--scrollbar_hover); 
-}
-div::-ms-thumb {
-    background-color: var(--scrollbar_normal);
-    border-radius: 8px;
-}
-div::-ms-thumb:hover {
-    background-color: var(--scrollbar_hover);
-}
-select {
-    width: 100%;
-    font-size: 20px;
-    background-color: var(--select_normal);
-    border-radius: 8px;
-    border: 2px solid var(--select_normal_border);
-    color: var(--text_small);
-    text-decoration: none;
-    text-align: center;
-    font-weight: 800;
-}
-option {
-    font-size: 20px;
-    background-color: var(--option_normal);
-    border-radius: 8px;
-    color: var(--text_small);
-    text-decoration: none;
-    text-align: center;
-    font-weight: 800;
-}
-select:hover {
-    background-color: var(--select_hover);
-    border: 2px solid var(--select_hover_border);
+    font-weight: 600;
 }

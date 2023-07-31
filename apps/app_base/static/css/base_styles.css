@@ -1,0 +1,241 @@
+/* 全局色彩设置 */
+:root {
+    --div_body_background: url("base_bg.jpg");
+    --font_family: "Microsoft YaHei";
+    
+    --div_main: rgba(0, 0, 0, 0.5);
+    --div_secondary: rgba(0, 0, 0, 0.5);
+    --div_tertiary: rgba(0, 0, 0, 0.5);
+    --div_border: rgba(255, 255, 255, 0.25);
+
+    --div_custom_popup: rgba(0, 0, 0, 0.8);
+    --div_status_popup: rgba(255, 255, 255, 0.75);
+    --div_text_status_popup: rgba(0, 0, 0, 0.9);
+
+    --text_large: rgba(235, 235, 235, 1.0);
+    --text_middle: rgba(225, 225, 225, 0.95);
+    --text_small: rgba(225, 225, 225, 0.9);
+
+    --button_normal: rgba(0, 0, 0, 0);
+    --button_normal_border: rgba(255, 255, 255, 0.3);
+    --button_hover: rgba(0, 0, 0, 0.25);
+    --button_hover_border: rgba(255, 255, 255, 0.5);
+
+    --select_normal: rgba(0, 0, 0, 0.25);
+    --select_normal_border: rgba(255, 255, 255, 0.3);
+    --select_hover: rgba(0, 0, 0, 0.25);
+    --select_hover_border: rgba(255, 255, 255, 0.5);
+    --option_normal: rgba(0, 0, 0, 0.25);
+
+    --textarea_normal: rgba(0, 0, 0, 0);
+    --textarea_normal_border: rgba(255, 255, 255, 0.3);
+    --textarea_focus: rgba(0, 0, 0, 0);
+    --textarea_focus_border: rgba(255, 255, 255, 0.5);
+
+    --input_normal: rgba(0, 0, 0, 0);
+    --input_normal_border: rgba(255, 255, 255, 0.3);
+
+    --li_normal: rgba(0, 0, 0, 0);
+    --li_hover: rgba(50, 50, 50, 0.45);
+
+    --scrollbar_normal: rgba(100, 100, 100, 1);
+    --scrollbar_hover: rgba(120, 120, 120, 1);
+
+    --canvas_normal: rgba(255, 255, 255, 0.1);
+}
+
+/* 全局html/body设置 */
+html {
+    width: 100%; height: 100%;
+}
+body {
+    width: 100%; height: 100%;
+    margin: 0px; padding: 10px;
+    user-select: none;  /* 全局屏蔽文本选中动作 */
+    box-sizing: border-box;
+
+    background-image: var(--div_body_background);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    font-family: var(--font_family);
+}
+/* 全局主容器div设置 */
+#main_div {
+    width: 100%; height: 100%;
+    background-color: var(--div_main);
+    border-radius: 30px;
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center; align-items: center;   /* 水平中心对齐 垂直中心对齐 */
+    box-sizing: border-box;
+}
+/* 全局状态弹窗设置 */
+#status_popup_div {
+    position: absolute; display: none;
+    background-color: var(--div_status_popup);
+    border-radius: 10px;
+    top: 50%; left: 50%; width: 260px; height: 80px; transform: translate(-50%, -50%);
+    justify-content: center; align-items: center;   /* 水平中心对齐 垂直中心对齐 */
+    z-index: 10000;                                 /* 置于顶层 */
+}
+#status_popup_label {
+    color: var(--div_text_status_popup);
+    font-size: 20px;
+    font-weight: 800;
+}
+/* 全局操作弹窗特定位置设置 */
+#custom_popup_div {
+    position: absolute; display: none;
+    top: 50%; left: 50%; width: 80%; height: 80%; transform: translate(-50%, -50%);
+    justify-content: center; align-items: center;   /* 水平中心对齐 垂直中心对齐 */
+    z-index: 9999;                                  /* 置于顶层 */
+}
+/* 按钮元素 */
+button {
+    background-color: var(--button_normal);
+    border-radius: 3px;
+    border: 1px solid var(--button_normal_border);
+    font-size: 16px;
+    color: var(--text_middle);
+    text-decoration: none;
+    text-align: center;
+    font-weight:100;
+    font-family: var(--font_family);
+    vertical-align: middle;
+}
+button:hover {
+    background-color: var(--button_hover);
+    border-color: var(--button_hover_border);
+}
+/* 输入框元素 */
+input {
+    color: var(--text_small);
+    background-color: var(--input_normal_normal);
+    border: 1px solid var(--input_normal_border);
+    border-radius: 6px;
+    font-size: 16px;
+    align-items: center;
+    font-family: var(--font_family);
+    vertical-align: middle;
+}
+input::placeholder {
+    font-size: 16px;
+    font-weight:400;
+}
+input[type="number"] {
+    width: 50px;
+}
+input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+/* select元素设置 */
+select {
+    font-size: 20px;
+    background-color: var(--select_normal);
+    border-radius: 8px;
+    border: 2px solid var(--select_normal_border);
+    color: var(--text_middle);
+    text-decoration: none;
+    text-align: center;
+    font-weight: 800;
+    vertical-align: middle;
+}
+select:hover {
+    background-color: var(--select_hover);
+    border: 2px solid var(--select_hover_border);
+}
+option {
+    font-size: 20px;
+    background-color: var(--option_normal);
+    border-radius: 8px;
+    color: var(--text_middle);
+    text-decoration: none;
+    text-align: center;
+    font-weight: 800;
+}
+/* label元素 */
+label {
+    font-size: 16px;
+    color: var(--text_small);
+    font-weight: 100;
+}
+/* textarea元素 */
+textarea {
+    background-color: var(--textarea_normal);
+    border-radius: 5px;
+    border: 2px solid var(--textarea_normal_border);
+    font-size: 14px;
+    color: var(--text_small);
+    padding: 10px;
+    resize: none;
+    box-sizing: border-box;
+    font-family: var(--font_family);
+}
+textarea:focus {
+    outline: none;
+    background-color: var(--textarea_focus);
+    border-color: var(--textarea_focus_border);
+}
+textarea::-webkit-scrollbar {
+    width: 0px;
+}
+/* 列表元素设置 */
+ul {
+    margin: 0px; padding: 0px;
+    list-style-type: none;      /* 移除列表项前面的黑点 */
+    overflow: auto;
+}
+li {
+    display: flex;
+    background-color: var(--li_normal);
+    align-items: center;   /* 垂直中心对齐 */
+}
+li:hover {   /* li标签的移入动画 */
+    background-color: var(--li_hover);
+    transition: background-color 0.2s ease;
+}
+a {
+    width: 100%;
+    text-decoration: none;      /* 移除链接的下划线 */
+    color: var(--text_small);   /* 设置文字颜色 */
+    font-size: 16px;
+    font-family: var(--font_family);
+    font-weight: 300;
+}
+/* 字体元素设置 */
+h1 {
+    margin: 0px 0px 0px 0px;    /* 上右下左 */
+    color: var(--text_large);
+}
+h2 {
+    margin: 0px 0px 0px 0px;    /* 上右下左 */
+    color: var(--text_middle);
+}
+h3 {
+    margin: 0px 0px 0px 0px;    /* 上右下左 */
+    color: var(--text_small);
+}
+/* 滚动条元素设置 */
+div::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+div::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbar_normal);
+    border-radius: 8px;
+}
+div::-webkit-scrollbar-thumb:hover {
+    background-color: var(--scrollbar_hover); 
+}
+div::-ms-thumb {
+    background-color: var(--scrollbar_normal);
+    border-radius: 8px;
+}
+div::-ms-thumb:hover {
+    background-color: var(--scrollbar_hover);
+}
+

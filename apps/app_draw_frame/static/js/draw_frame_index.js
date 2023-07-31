@@ -13,7 +13,7 @@ var current_folder = ""; var current_file = ""; var current_drawing = ["", []]; 
 /**上传文件form */
 var upload_file_form = new FormData();
 /**弹窗 状态弹窗 状态弹窗文字 */
-const popup_div = document.getElementById('popup_div');
+const custom_popup_div = document.getElementById('custom_popup_div');
 const status_popup_div = document.getElementById('status_popup_div');
 const status_popup_label = document.getElementById('status_popup_label');
 /**绑定上传文件按钮 */
@@ -220,6 +220,7 @@ function refresh_frame(folder, file) {
         */
         const frame = new Image();
         frame.onload = function() {
+            frame_canvas.width = 640; frame_canvas.height = 640;
             frame_context.drawImage(frame, 0, 0, 640, 640);     // 覆盖canvas图像
 
             items_ul.innerHTML = '';
@@ -246,7 +247,6 @@ function create_folder(action) {
      * 创建文件夹弹窗
      * 文件夹名称
      */
-    const popup_div = document.getElementById('popup_div');
     const create_folder_popup_div = document.getElementById('create_folder_popup_div');
     const create_folder_input = document.getElementById('create_folder_input');
     
@@ -262,7 +262,7 @@ function create_folder(action) {
          * 设置全局事件禁用
          * 设置二级弹窗解除禁用
          */
-        popup_div.style.display = 'flex';
+        custom_popup_div.style.display = 'flex';
         create_folder_popup_div.style.display = 'flex';
         main_div.style.pointerEvents = 'none';
         create_folder_popup_div.style.pointerEvents = 'auto';
@@ -275,7 +275,7 @@ function create_folder(action) {
          */
         main_div.style.pointerEvents = 'auto';
         create_folder_popup_div.style.display = 'none';
-        popup_div.style.display = 'none';
+        custom_popup_div.style.display = 'none';
     }
     if (action === "confirm") {
         fetch('/draw_frame/create_folder/', {     // 发送POST请求获取文件夹下对应的文件列表
@@ -296,7 +296,7 @@ function create_folder(action) {
             main_div.style.pointerEvents = 'auto';
             refresh_folders_list();
             create_folder_popup_div.style.display = 'none';
-            popup_div.style.display = 'none';
+            custom_popup_div.style.display = 'none';
             status_popup(1, "文件夹创建成功！");
         })
         .catch(error => {
@@ -357,7 +357,7 @@ function upload_file(action) {
          * 设置二级弹窗解除禁用
          */
         if (current_folder === "") {return;}
-        popup_div.style.display = 'flex';
+        custom_popup_div.style.display = 'flex';
         upload_file_popup_div.style.display = 'flex';
         main_div.style.pointerEvents = 'none';
         upload_file_popup_div.style.pointerEvents = 'auto';
@@ -428,7 +428,7 @@ function upload_file(action) {
                      */
                     main_div.style.pointerEvents = 'auto';
                     upload_file_popup_div.style.display = 'none';
-                    popup_div.style.display = 'none';
+                    custom_popup_div.style.display = 'none';
                     status_popup_div.style.display = 'none';
                 }, 1500);
                 return;
@@ -465,7 +465,7 @@ function upload_file(action) {
         upload_ul.innerHTML = '';
         main_div.style.pointerEvents = 'auto';
         upload_file_popup_div.style.display = 'none';
-        popup_div.style.display = 'none';
+        custom_popup_div.style.display = 'none';
         status_popup_div.style.display = 'none';
     }
 }
@@ -529,7 +529,7 @@ function download_file(action) {
          * 设置二级弹窗解除禁用
          */
         if (download_num === 0) {return;}
-        popup_div.style.display = 'flex';
+        custom_popup_div.style.display = 'flex';
         download_file_popup_div.style.display = 'flex';
         main_div.style.pointerEvents = 'none';
         download_file_popup_div.style.pointerEvents = 'auto';
@@ -560,7 +560,7 @@ function download_file(action) {
                      * 状态弹窗文字
                      */
                     download_file_popup_div.style.display = 'none';
-                    popup_div.style.display = 'none';
+                    custom_popup_div.style.display = 'none';
                     status_popup_label.textContent = "下载开始！";
                     setTimeout(() => {
                         /**
@@ -599,7 +599,7 @@ function download_file(action) {
     if (action === "cancel") {
         main_div.style.pointerEvents = 'auto';
         download_file_popup_div.style.display = 'none';
-        popup_div.style.display = 'none';
+        custom_popup_div.style.display = 'none';
         status_popup_div.style.display = 'none';
     }
 }
@@ -865,7 +865,6 @@ function normalization(frame_resolution, normalization_flag, drawing) {
     if (normalization_flag === "normalize") {
         if (frame_height > frame_width) {ratio = 640.0/frame_height; x_shift = (640.0 - frame_width*ratio)/2; y_shift = 0;} 
         else                            {ratio = 640.0/frame_width; x_shift = 0; y_shift = (640.0 - frame_height*ratio)/2;}
-        console.log(ratio, x_shift, y_shift);
     }
     if (normalization_flag === "denormalize") {
         if (frame_height > frame_width) {ratio = frame_height/640.0; x_shift = (frame_height-frame_width)/2; y_shift = 0;} 

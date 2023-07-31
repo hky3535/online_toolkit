@@ -9,4 +9,4 @@ class Main:
         pass
 
     def index(self, request):   # GET
-        return render(request, 'root_index.html')
+        return render(request, 'base_index.html')

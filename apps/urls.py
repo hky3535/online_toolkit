@@ -4,25 +4,28 @@
 from django.contrib import admin
 from django.urls import path
 
-from .app_root.main import Main as RootMain
-from .app_draw_frame.main import Main as DrawFrameMain
-from .app_limited_time_sharing.main import Main as LimitedTimeSharingMain
-from .app_media_scrape.main import Main as MediaScrapeMain
-from .app_word_cloud.main import Main as WordCloudMain
-from .app_ffmpeg_toolkit.main import Main as FFmpegToolkitMain
+from . import app_
+from . import app_base
+from . import app_draw_frame
+from . import app_limited_time_sharing
+from . import app_media_scrape
+from . import app_word_cloud
+from . import app_ffmpeg_toolkit
 
-root_main = RootMain()
-draw_frame_main = DrawFrameMain()
-limited_time_sharing_main = LimitedTimeSharingMain()
-media_scrape_main = MediaScrapeMain()
-word_cloud_main = WordCloudMain()
-ffmpeg_toolkit_main = FFmpegToolkitMain()
+_main = app_.main.Main()
+base_main = app_base.main.Main()
+draw_frame_main = app_draw_frame.main.Main()
+limited_time_sharing_main = app_limited_time_sharing.main.Main()
+media_scrape_main = app_media_scrape.main.Main()
+word_cloud_main = app_word_cloud.main.Main()
+ffmpeg_toolkit_main = app_ffmpeg_toolkit.main.Main()
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    # app_root
-    path('', root_main.index),
+    # app_base
+    path('', base_main.index),
 
     # app_draw_frame
     path('draw_frame/', draw_frame_main.index),
