@@ -2,7 +2,6 @@
 
 /* 链接窗 */
 #links_div {
-    width: 500px; height: 100%;
     background-color: var(--div_secondary);
     border-radius: 20px;
     padding: 30px;
@@ -12,15 +11,15 @@
     box-sizing: border-box;
 }
 
+#buttons_div {
+    flex-direction: row;
+}
+
 button {
-    font-size: 22px;
-    height: 80px;
-    margin: 5px;
-    border-radius: 8px;
-    border-width: 2px;
-    font-weight:800;
+    font-size: 20px;
+    font-weight:600;
 }
 
 h1 {
-    margin: 0px 0px 30px 0px;   /* 上右下左 */
+    margin: 0px 0px 10px 0px;   /* 上右下左 */
 }

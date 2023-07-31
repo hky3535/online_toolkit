@@ -4,7 +4,6 @@
 from django.contrib import admin
 from django.urls import path
 
-from . import app_
 from . import app_base
 from . import app_draw_frame
 from . import app_limited_time_sharing
@@ -12,7 +11,6 @@ from . import app_media_scrape
 from . import app_word_cloud
 from . import app_ffmpeg_toolkit
 
-_main = app_.main.Main()
 base_main = app_base.main.Main()
 draw_frame_main = app_draw_frame.main.Main()
 limited_time_sharing_main = app_limited_time_sharing.main.Main()
