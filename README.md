@@ -11,7 +11,7 @@ django+html+css+js
 ## docker使用方式
 ### 一键部署
 ```bash
-git clone https://github.com/hky3535/online_toolkit.git && cd online_toolkit && docker build -t online_toolkit:latest . && docker run -itd --name online_toolkit -p 60000:30000 --restart always --privileged online_toolkit:latest
+git clone https://github.com/hky3535/online_toolkit.git && cd online_toolkit && docker build -t online_toolkit:latest . && docker run -itd --name online_toolkit -p 60000:30000 --restart always --privileged online_toolkit:latest && cd ..
 ```
 * 可以使用docker logs online_toolkit查看初始化进度，等待所有初始化库安装完成即可开始运行
 ### 设置bilibili爬虫的cookie
@@ -25,6 +25,7 @@ git clone https://github.com/hky3535/online_toolkit.git
 cd online_toolkit
 docker build -t online_toolkit:latest .
 docker run -itd --name online_toolkit -p 60000:30000 --restart always --privileged online_toolkit:latest
+ && cd ..
 ```
 * 可以使用docker logs online_toolkit查看初始化进度，等待所有初始化库安装完成即可开始运行
 ### 访问https://0.0.0.0:60000进入网站
